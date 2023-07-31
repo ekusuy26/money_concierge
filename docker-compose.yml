@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  frontend:
+    container_name: ${APP_NAME}_frontend
+    ports:
+      - "3000:3000"
+    build:
+      context: ./docker/nextjs
+    command: yarn dev
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./src/frontend:/app
