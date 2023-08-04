@@ -1,3 +1,21 @@
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
+
+input:checked + label.mj-categoryBtn {
+  color: #fff;
+  background-color: #25a298;
+}
+
+.mj-slideBar {
+  z-index: -1;
+  @apply absolute bg-red-500 bg-opacity-75 h-full w-1/2 rounded-lg
+    duration-500;
+}
+
+input#payment:checked ~ .mj-slideBar {
+  @apply left-0;
+}
+input#income:checked ~ .mj-slideBar {
+  @apply left-1/2;
+}
