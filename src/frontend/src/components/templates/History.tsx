@@ -1,9 +1,9 @@
 import { useState } from "react";
-import List from "../organisms/List";
-import Modal from "../organisms/Modal";
 import { CSSTransition } from "react-transition-group";
-import Svg from "../atoms/Svg";
-import Form from "../organisms/Form";
+import Svg from "@/components/atoms/Svg";
+import List from "@/components/organisms/List";
+import Modal from "@/components/organisms/Modal";
+import Form from "@/components/organisms/Form";
 
 export default function History() {
   const [isOpen, setIsOpen] = useState(false);

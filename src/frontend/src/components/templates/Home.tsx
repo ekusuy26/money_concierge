@@ -1,5 +1,5 @@
-import DoughnutChart from "../molecules/DoughnutChart";
-import Modal from "../organisms/Modal";
+import DoughnutChart from "@/components/molecules/DoughnutChart";
+import Modal from "@/components/organisms/Modal";
 
 export default function Home() {
   return (

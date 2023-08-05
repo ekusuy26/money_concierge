@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ListTitle from "../atoms/ListTitle";
-import ListContent from "../molecules/ListContent";
 import { ListProps } from "@/interfaces/interface";
+import ListTitle from "@/components/atoms/ListTitle";
+import ListContent from "@/components/molecules/ListContent";
 
 export default function List({ callback }: ListProps) {
   const [item, setItem] = useState(0);

@@ -1,5 +1,5 @@
 import { ButtonCategoryProps } from "@/interfaces/interface";
-import Svg from "../atoms/Svg";
+import Svg from "@/components/atoms/Svg";
 
 export default function ButtonCategory({
   id,

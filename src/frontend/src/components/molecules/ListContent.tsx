@@ -1,5 +1,5 @@
 import { ListContentProps } from "@/interfaces/interface";
-import Svg from "../atoms/Svg";
+import Svg from "@/components/atoms/Svg";
 
 export default function ListContent({ callback }: ListContentProps) {
   return (

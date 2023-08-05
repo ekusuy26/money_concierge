@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import ButtonFixed from "../molecules/ButtonFixed";
-import Form from "../organisms/Form";
-import Svg from "../atoms/Svg";
+import Svg from "@/components/atoms/Svg";
+import ButtonFixed from "@/components/molecules/ButtonFixed";
+import Form from "@/components/organisms/Form";
 
 export default function Dev() {
   const [isOpen, setIsOpen] = useState(false);
