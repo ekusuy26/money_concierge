@@ -1,3 +1,5 @@
+import Svg from "../atoms/Svg";
+
 export default function ListContent({ clickedContent }) {
   return (
     <>
@@ -6,7 +8,9 @@ export default function ListContent({ clickedContent }) {
         onClick={clickedContent}
       >
         <div className="flex items-center">
-          <div className="h-8 w-8 rounded-full bg-red-500 inline-block"></div>
+          <div className="h-8 w-8 rounded-full border p-1 inline-block">
+            <Svg slug="food" />
+          </div>
           <span className="ms-3">項目名</span>
         </div>
         <div className="">100円</div>

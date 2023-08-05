@@ -2,7 +2,7 @@ import { useState } from "react";
 import List from "../organisms/List";
 import Modal from "../organisms/Modal";
 import { CSSTransition } from "react-transition-group";
-import { CloseSvg } from "../atoms/Svg";
+import Svg from "../atoms/Svg";
 import Form from "../organisms/Form";
 
 export default function History() {
@@ -21,7 +21,7 @@ export default function History() {
         <div className="mj-fadeX z-modal">
           <div className="text-right">
             <button className="h-10 w-10 m-5" onClick={() => setIsOpen(false)}>
-              <CloseSvg />
+              <Svg slug="close" />
             </button>
           </div>
           <Form closeModal={() => setIsOpen(false)} />

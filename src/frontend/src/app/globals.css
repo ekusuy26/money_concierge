@@ -3,12 +3,15 @@
 @import "~tailwindcss/utilities";
 
 body {
-  @apply bg-zinc-50;
+  @apply bg-zinc-50 pb-16;
 }
 
 input:checked + label.mj-categoryBtn {
   color: #fff;
   background-color: #25a298;
+}
+input:checked + label.mj-categoryBtn path {
+  fill: #fff;
 }
 
 .mj-slideBar {
@@ -38,7 +41,7 @@ input#income:checked ~ .mj-slideBar {
 }
 
 .mj-fade {
-  @apply absolute bottom-0 w-full bg-white;
+  @apply fixed bottom-0 w-full bg-white;
 }
 
 .mj-fadeX-enter {
@@ -55,5 +58,5 @@ input#income:checked ~ .mj-slideBar {
 }
 
 .mj-fadeX {
-  @apply absolute inset-0 bg-white;
+  @apply fixed inset-0 bg-white;
 }

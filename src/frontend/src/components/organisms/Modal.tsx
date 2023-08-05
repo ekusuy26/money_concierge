@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import ButtonFixed from "../molecules/ButtonFixed";
 import Form from "../organisms/Form";
-import { CloseSvg } from "../atoms/Svg";
+import Svg from "../atoms/Svg";
 
 export default function Modal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function Modal() {
         <div className="mj-fade z-modal">
           <div className="text-right">
             <button className="h-10 w-10 m-5" onClick={() => setIsOpen(false)}>
-              <CloseSvg />
+              <Svg slug="close" />
             </button>
           </div>
           <Form closeModal={closeModal} />

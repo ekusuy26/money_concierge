@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Home from "@/components/templates/Home";
 import MainMenu from "@/components/organisms/MainMenu";
+import Home from "@/components/templates/Home";
 import History from "@/components/templates/History";
-import Dev from "@/components/templates/Dev";
+import Setting from "@/components/templates/Setting";
+import Report from "@/components/templates/Report";
+// import Dev from "@/components/templates/Dev";
 
 export default function Page() {
   const [section, setSection] = useState("home");
@@ -13,7 +15,9 @@ export default function Page() {
     <>
       {section === "home" && <Home />}
       {section === "history" && <History />}
-      {section === "dev" && <Dev />}
+      {section === "report" && <Report />}
+      {section === "setting" && <Setting />}
+      {/* {section === "dev" && <Dev />} */}
       <MainMenu callback={setSection} />
     </>
   );

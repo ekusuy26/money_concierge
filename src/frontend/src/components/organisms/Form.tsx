@@ -37,14 +37,23 @@ export default function Form({ closeModal }) {
   // console.log(watch()); // watch input value by passing the name of it
 
   const categories = [
-    { id: 1, name: "name1" },
-    { id: 2, name: "name2" },
-    { id: 3, name: "name3" },
-    { id: 4, name: "name4" },
-    { id: 5, name: "name5" },
-    { id: 6, name: "name6" },
+    { id: 1, name: "食費", slug: "food" },
+    { id: 2, name: "日用品", slug: "dailyNecessities" },
+    { id: 3, name: "交通", slug: "traffic" },
+    { id: 4, name: "交際", slug: "companionship" },
+    { id: 5, name: "被服", slug: "clothes" },
+    { id: 6, name: "美容", slug: "beauty" },
+    { id: 7, name: "医療", slug: "medical" },
+    { id: 8, name: "特別", slug: "special" },
+    { id: 9, name: "趣味", slug: "hobby" },
+    { id: 10, name: "雑費", slug: "miscellaneous" },
+    { id: 11, name: "住居", slug: "residence" },
+    { id: 12, name: "水道、光熱", slug: "lifeLine" },
+    { id: 13, name: "通信", slug: "communication" },
+    { id: 14, name: "保険", slug: "insurance" },
+    { id: 15, name: "自動車", slug: "car" },
+    { id: 16, name: "教育", slug: "education" },
   ];
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,6 +127,7 @@ export default function Form({ closeModal }) {
                 id={category.id}
                 name={category.name}
                 register={register("category", { required: true })}
+                slug={category.slug}
               />
             ))}
           </div>
