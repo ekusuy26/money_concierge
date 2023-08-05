@@ -13,6 +13,9 @@ export default function Modal() {
 
   return (
     <>
+      {isOpen && (
+        <div className="fixed inset-0 bg-slate-600 bg-opacity-70 z-blackOut"></div>
+      )}
       <ButtonFixed callback={() => setIsOpen((prev) => !prev)} />
       <CSSTransition
         in={isOpen}
