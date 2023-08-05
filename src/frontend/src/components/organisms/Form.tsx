@@ -31,7 +31,7 @@ export default function Form({ closeModal }) {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     // setisRegist(true);
-    closeModal(false, "登録が完了しました。");
+    closeModal();
   };
 
   // console.log(watch()); // watch input value by passing the name of it

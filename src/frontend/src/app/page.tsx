@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Home from "@/components/templates/Home";
-import Modal from "@/components/organisms/Modal";
 import MainMenu from "@/components/organisms/MainMenu";
+import History from "@/components/templates/History";
+import Dev from "@/components/templates/Dev";
 
 export default function Page() {
   const [section, setSection] = useState("home");
@@ -11,8 +12,9 @@ export default function Page() {
   return (
     <>
       {section === "home" && <Home />}
+      {section === "history" && <History />}
+      {section === "dev" && <Dev />}
       <MainMenu callback={setSection} />
-      <Modal />
     </>
   );
 }

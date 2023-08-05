@@ -2,6 +2,10 @@
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
 
+body {
+  @apply bg-zinc-50;
+}
+
 input:checked + label.mj-categoryBtn {
   color: #fff;
   background-color: #25a298;
@@ -18,4 +22,21 @@ input#payment:checked ~ .mj-slideBar {
 }
 input#income:checked ~ .mj-slideBar {
   @apply left-1/2;
+}
+
+.mj-fade-enter {
+  @apply translate-y-full opacity-0;
+}
+.mj-fade-enter-active {
+  @apply translate-y-0 opacity-100 duration-500;
+}
+.mj-fade-exit {
+  @apply translate-y-0 opacity-100;
+}
+.mj-fade-exit-active {
+  @apply translate-y-full opacity-0 duration-500;
+}
+
+.mj-fade {
+  @apply absolute bottom-0 w-full bg-white;
 }

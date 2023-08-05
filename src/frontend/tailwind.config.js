@@ -15,6 +15,11 @@ module.exports = {
       boxShadow: {
         top: "0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 -2px 4px -2px rgb(0 0 0 / 0.1)",
       },
+      zIndex: {
+        nav: "7777",
+        blackOut: "8888",
+        modal: "9999",
+      },
       animation: {
         "slide-top":
           "slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940)   both",

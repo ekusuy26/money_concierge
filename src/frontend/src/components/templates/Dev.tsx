@@ -4,16 +4,17 @@ import ButtonFixed from "../molecules/ButtonFixed";
 import Form from "../organisms/Form";
 import { CloseSvg } from "../atoms/Svg";
 
-export default function Modal() {
+export default function Dev() {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
-    setIsOpen(false);
+    console.log("hoge");
   };
 
   return (
     <>
       <ButtonFixed callback={() => setIsOpen((prev) => !prev)} />
+
       <CSSTransition
         in={isOpen}
         timeout={500}
