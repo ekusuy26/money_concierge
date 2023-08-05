@@ -24,7 +24,7 @@ export default function History() {
               <Svg slug="close" />
             </button>
           </div>
-          <Form closeModal={() => setIsOpen(false)} />
+          <Form callback={() => setIsOpen(false)} />
         </div>
       </CSSTransition>
       <Modal />

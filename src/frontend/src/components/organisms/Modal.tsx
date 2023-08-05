@@ -26,7 +26,7 @@ export default function Modal() {
               <Svg slug="close" />
             </button>
           </div>
-          <Form closeModal={closeModal} />
+          <Form callback={closeModal} />
         </div>
       </CSSTransition>
     </>

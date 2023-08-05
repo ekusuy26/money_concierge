@@ -1,6 +1,12 @@
+import { ButtonCategoryProps } from "@/interfaces/interface";
 import Svg from "../atoms/Svg";
 
-export default function ButtonCategory({ id, name, register, slug }) {
+export default function ButtonCategory({
+  id,
+  name,
+  slug,
+  register,
+}: ButtonCategoryProps) {
   return (
     <>
       <input

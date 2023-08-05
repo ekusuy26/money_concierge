@@ -1,4 +1,6 @@
-export default function Svg({ slug }) {
+import { SvgProps } from "@/interfaces/interface";
+
+export default function Svg({ slug }: SvgProps) {
   if (slug === "close") {
     return (
       <svg

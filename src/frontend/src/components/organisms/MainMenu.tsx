@@ -1,6 +1,7 @@
+import { MainMenuProps } from "@/interfaces/interface";
 import Svg from "../atoms/Svg";
 
-export default function MainMenu({ callback }) {
+export default function MainMenu({ callback }: MainMenuProps) {
   return (
     <nav className="fixed inset-x-0 bottom-0 bg-white z-nav text-xs">
       <div className="grid grid-cols-4 divide-x shadow-top h-16">

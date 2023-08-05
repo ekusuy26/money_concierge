@@ -3,6 +3,7 @@ import ButtonCategory from "../molecules/ButtonCategory";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FormProps } from "@/interfaces/interface";
 
 type Inputs = {
   amount: string;
@@ -12,8 +13,8 @@ type Inputs = {
   note: string;
 };
 
-export default function Form({ closeModal }) {
-  const [startDate, setStartDate] = useState(new Date());
+export default function Form({ callback }: FormProps) {
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   // const [isRegist, setisRegist] = useState(false);
 
   const {
@@ -31,7 +32,7 @@ export default function Form({ closeModal }) {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     // setisRegist(true);
-    closeModal();
+    callback();
   };
 
   // console.log(watch()); // watch input value by passing the name of it
@@ -87,7 +88,7 @@ export default function Form({ closeModal }) {
           <Controller
             name="date"
             control={control}
-            defaultValue={startDate.toString()}
+            defaultValue={startDate?.toString()}
             render={({ field }) => (
               <DatePicker
                 dateFormat="yyyy年MM月dd日"
@@ -126,8 +127,8 @@ export default function Form({ closeModal }) {
                 key={category.id}
                 id={category.id}
                 name={category.name}
-                register={register("category", { required: true })}
                 slug={category.slug}
+                register={register("category", { required: true })}
               />
             ))}
           </div>
