@@ -6,7 +6,7 @@ export default function ListContent({ callback }: ListContentProps) {
     <>
       <button
         className="w-full flex justify-between items-center border-b px-5 py-2 bg-white"
-        onClick={() => callback}
+        onClick={() => callback()}
       >
         <div className="flex items-center">
           <div className="h-8 w-8 rounded-full border p-1 inline-block">
