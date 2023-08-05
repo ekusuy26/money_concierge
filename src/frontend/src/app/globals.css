@@ -40,3 +40,20 @@ input#income:checked ~ .mj-slideBar {
 .mj-fade {
   @apply absolute bottom-0 w-full bg-white;
 }
+
+.mj-fadeX-enter {
+  @apply translate-x-full opacity-0;
+}
+.mj-fadeX-enter-active {
+  @apply translate-x-0 opacity-100 duration-500;
+}
+.mj-fadeX-exit {
+  @apply translate-x-0 opacity-100;
+}
+.mj-fadeX-exit-active {
+  @apply translate-x-full opacity-0 duration-500;
+}
+
+.mj-fadeX {
+  @apply absolute inset-0 bg-white;
+}
