@@ -10,6 +10,8 @@ back:
 	docker-compose exec backend bash
 db:
 	docker-compose exec db bash
+nginx:
+	docker-compose exec nginx bash
 next:
 	docker-compose exec frontend yarn create next-app . --typescript
 migrate:
