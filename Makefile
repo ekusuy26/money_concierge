@@ -16,3 +16,5 @@ next:
 	docker-compose exec frontend yarn create next-app . --typescript
 migrate:
 	docker-compose exec backend php artisan migrate
+yarn_install:
+	docker-compose exec frontend yarn install
