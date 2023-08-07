@@ -1,12 +1,7 @@
 import { MainMenuProps } from "@/interfaces/interface";
 import Svg from "@/components/atoms/Svg";
-// import { useSession } from "next-auth/react";
 
 export default function MainMenu({ callback }: MainMenuProps) {
-  // const { data: session, status } = useSession();
-  // const userEmail = session?.user?.email;
-  // console.log(session, status, userEmail);
-
   return (
     <nav className="fixed inset-x-0 bottom-0 bg-white z-nav text-xs">
       <div className="grid grid-cols-4 divide-x shadow-top h-16">

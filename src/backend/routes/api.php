@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->json('hello world');
 });
+Route::get('/category', function () {
+    return response()->json('cateogry api');
+});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

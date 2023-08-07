@@ -20,7 +20,12 @@ next:
 	docker-compose exec frontend yarn create next-app . --typescript
 migrate:
 	docker-compose exec backend php artisan migrate
+refresh:
+	docker-compose exec backend php artisan migrate:refresh --seed
 rollback:
 	docker-compose exec backend php artisan migrate:rollback
 yarn_install:
 	docker-compose exec frontend yarn install
+# make artisan COMMAND="this is command"
+artisan:
+	docker-compose exec --user=1000 backend php artisan ${COMMAND}
