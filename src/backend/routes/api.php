@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Category\FetchCategoriesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->json('hello world');
 });
-Route::get('/category', function () {
-    return response()->json('cateogry api');
-});
+Route::get('/category', FetchCategoriesController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
