@@ -29,3 +29,5 @@ yarn_install:
 # make artisan COMMAND="this is command"
 artisan:
 	docker-compose exec --user=1000 backend php artisan ${COMMAND}
+yarn_add:
+	docker-compose exec frontend yarn add ${PACKAGE}

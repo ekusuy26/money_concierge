@@ -1,3 +1,7 @@
+"use client";
+
+import useSWR from "swr";
+import { fetcher } from "@/Fetcher";
 import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -5,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { FormProps } from "@/interfaces/interface";
 import ButtonCategory from "@/components/molecules/ButtonCategory";
+import Load from "@/components/molecules/Load";
 
 type Inputs = {
   amount: string;
@@ -15,6 +20,10 @@ type Inputs = {
 };
 
 export default function Form({ callback }: FormProps) {
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/category`,
+    fetcher
+  );
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   // const [isRegist, setisRegist] = useState(false);
 
@@ -38,24 +47,9 @@ export default function Form({ callback }: FormProps) {
 
   // console.log(watch()); // watch input value by passing the name of it
 
-  const categories = [
-    { id: 1, name: "食費", slug: "food" },
-    { id: 2, name: "日用品", slug: "dailyNecessities" },
-    { id: 3, name: "交通", slug: "traffic" },
-    { id: 4, name: "交際", slug: "companionship" },
-    { id: 5, name: "被服", slug: "clothes" },
-    { id: 6, name: "美容", slug: "beauty" },
-    { id: 7, name: "医療", slug: "medical" },
-    { id: 8, name: "特別", slug: "special" },
-    { id: 9, name: "趣味", slug: "hobby" },
-    { id: 10, name: "雑費", slug: "miscellaneous" },
-    { id: 11, name: "住居", slug: "residence" },
-    { id: 12, name: "水道、光熱", slug: "lifeLine" },
-    { id: 13, name: "通信", slug: "communication" },
-    { id: 14, name: "保険", slug: "insurance" },
-    { id: 15, name: "自動車", slug: "car" },
-    { id: 16, name: "教育", slug: "education" },
-  ];
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -123,7 +117,7 @@ export default function Form({ callback }: FormProps) {
         <div className="border-b p-5">
           <p className="mb-3">カテゴリー</p>
           <div className="grid grid-cols-3 gap-3">
-            {categories.map((category, _) => (
+            {data.map((category, _) => (
               <ButtonCategory
                 key={category.id}
                 id={category.id}
