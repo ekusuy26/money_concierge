@@ -21,6 +21,7 @@ next:
 migrate:
 	docker-compose exec backend php artisan migrate
 refresh:
+	docker-compose exec frontend yarn prisma migrate reset --force
 	docker-compose exec backend php artisan migrate:refresh --seed
 rollback:
 	docker-compose exec backend php artisan migrate:rollback
