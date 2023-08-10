@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
-use Illuminate\Http\Request;
 
 class FetchCategoriesController extends Controller
 {
@@ -14,7 +13,6 @@ class FetchCategoriesController extends Controller
     public function __invoke(CategoryService $categoryService)
     {
         $categories = $categoryService->fetchCategories();
-
         return response()->json($categories);
     }
 }

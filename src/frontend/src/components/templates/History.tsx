@@ -9,9 +9,7 @@ export default function History() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      {[...Array(3)].map((_, i) => (
-        <List key={"test" + i} callback={() => setIsOpen(true)} />
-      ))}
+      <List callback={() => setIsOpen(true)} />
       <CSSTransition
         in={isOpen}
         timeout={500}

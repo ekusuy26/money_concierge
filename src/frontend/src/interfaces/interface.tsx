@@ -17,6 +17,8 @@ export interface ButtonFixedProps {
   callback: Function;
 }
 export interface ListContentProps {
+  date: boolean;
+  finance: any;
   callback: Function;
 }
 // molecules

@@ -1,9 +1,16 @@
+import useSWR from "swr";
+import { fetcher } from "@/Fetcher";
 import { useState } from "react";
 import { ListProps } from "@/interfaces/interface";
-import ListTitle from "@/components/atoms/ListTitle";
 import ListContent from "@/components/molecules/ListContent";
+import Load from "@/components/molecules/Load";
 
 export default function List({ callback }: ListProps) {
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/finance`,
+    fetcher
+  );
+
   const [item, setItem] = useState(0);
 
   const clickedContent = () => {
@@ -11,11 +18,17 @@ export default function List({ callback }: ListProps) {
     callback();
   };
 
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
   return (
     <>
-      <ListTitle title={"2023年8月2日(火)"} />
-      {[...Array(10)].map((_, i) => (
-        <ListContent key={i} callback={() => clickedContent()} />
+      {data.map((finance, i) => (
+        <ListContent
+          key={finance.id}
+          date={data[i - 1]?.date !== finance.date}
+          finance={finance}
+          callback={() => clickedContent()}
+        />
       ))}
     </>
   );

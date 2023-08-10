@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Category\FetchCategoriesController;
 
+use App\Http\Controllers\Finance\FetchFinancesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +22,7 @@ Route::get('/', function () {
     return response()->json('hello world');
 });
 Route::get('/category', FetchCategoriesController::class);
+Route::get('/finance', FetchFinancesController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

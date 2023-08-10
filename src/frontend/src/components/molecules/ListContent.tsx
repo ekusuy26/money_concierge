@@ -1,20 +1,29 @@
 import { ListContentProps } from "@/interfaces/interface";
 import Svg from "@/components/atoms/Svg";
+import ListTitle from "@/components/atoms/ListTitle";
 
-export default function ListContent({ callback }: ListContentProps) {
+export default function ListContent({
+  date,
+  finance,
+  callback,
+}: ListContentProps) {
   return (
     <>
+      {date && <ListTitle title={finance.date} />}
       <button
         className="w-full flex justify-between items-center border-b px-5 py-2 bg-white"
         onClick={() => callback()}
       >
         <div className="flex items-center">
           <div className="h-8 w-8 rounded-full border p-1 inline-block">
-            <Svg slug="food" />
+            <Svg slug={finance.slug} />
           </div>
-          <span className="ms-3">項目名</span>
+          <p>
+            <span className="ms-3">{finance.category_name}</span>
+            <span className="text-xs ms-3">{finance.item_name}</span>
+          </p>
         </div>
-        <div className="">100円</div>
+        <div className="">{Number(finance.amount).toLocaleString()}円</div>
       </button>
     </>
   );
