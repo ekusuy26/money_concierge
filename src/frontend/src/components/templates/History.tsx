@@ -6,10 +6,15 @@ import Modal from "@/components/organisms/Modal";
 import Form from "@/components/organisms/Form";
 
 export default function History() {
+  const [finance, setFinance] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const openModal = (finance) => {
+    setIsOpen(true);
+    setFinance(finance);
+  };
   return (
     <>
-      <List callback={() => setIsOpen(true)} />
+      <List callback={openModal} />
       <CSSTransition
         in={isOpen}
         timeout={500}
@@ -22,7 +27,7 @@ export default function History() {
               <Svg slug="close" />
             </button>
           </div>
-          <Form callback={() => setIsOpen(false)} />
+          <Form finance={finance} callback={() => setIsOpen(false)} />
         </div>
       </CSSTransition>
       <Modal />

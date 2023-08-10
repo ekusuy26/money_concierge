@@ -13,9 +13,8 @@ export default function List({ callback }: ListProps) {
 
   const [item, setItem] = useState(0);
 
-  const clickedContent = () => {
-    console.log("clicked");
-    callback();
+  const clickedContent = (finance) => {
+    callback(finance);
   };
 
   if (error) return <Load status="fail" />;
@@ -27,7 +26,7 @@ export default function List({ callback }: ListProps) {
           key={finance.id}
           date={data[i - 1]?.date !== finance.date}
           finance={finance}
-          callback={() => clickedContent()}
+          callback={() => clickedContent(finance)}
         />
       ))}
     </>

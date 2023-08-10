@@ -22,7 +22,17 @@ class FinanceRepository
     public function fetchList($startDate, $endDate): Collection
     {
         return $this->finance
-            ->select('finances.id', 'amount', 'slug', 'item_name', 'name as category_name', 'date')
+            ->select(
+                'finances.id',
+                'amount',
+                'slug',
+                'item_name',
+                'category_id',
+                'name as category_name',
+                'date',
+                'income_flag',
+                'memo'
+            )
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
             ->whereBetween('date', [$startDate, $endDate])
             ->orderBy('date', 'desc')

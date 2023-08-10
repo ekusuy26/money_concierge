@@ -16,17 +16,17 @@ type Inputs = {
   date: string;
   category: string;
   balance: string;
-  note: string;
+  memo: string;
 };
 
-export default function Form({ callback }: FormProps) {
+export default function Form({ finance = null, callback }: FormProps) {
   const { data, error, isLoading } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/category`,
     fetcher
   );
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const init = finance === null ? new Date() : new Date(finance.date);
+  const [startDate, setStartDate] = useState<Date | null>(init);
   // const [isRegist, setisRegist] = useState(false);
-
   const {
     register,
     control,
@@ -35,8 +35,10 @@ export default function Form({ callback }: FormProps) {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      balance: "0",
-      category: "1",
+      balance: finance ? String(finance.income_flag) : "0",
+      category: finance ? String(finance.category_id) : "1",
+      amount: finance && finance.amount,
+      memo: finance && finance.memo,
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -133,14 +135,14 @@ export default function Form({ callback }: FormProps) {
         </div>
         <div className="border-b px-5">
           <div className="flex justify-between items-center">
-            <label htmlFor="note">memo</label>
+            <label htmlFor="memo">memo</label>
             <input
               className="bg-inherit outline-none p-3"
               autoComplete="off"
-              {...register("note")}
+              {...register("memo")}
             />
           </div>
-          {errors.note && (
+          {errors.memo && (
             <p className="text-xs text-red-500">This field is required</p>
           )}
         </div>
