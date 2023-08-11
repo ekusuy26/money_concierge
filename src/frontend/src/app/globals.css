@@ -16,8 +16,12 @@ input:checked + label.mj-categoryBtn path {
 
 .mj-slideBar {
   z-index: -1;
-  @apply absolute bg-red-500 bg-opacity-75 h-full w-1/2 rounded-lg
+  @apply absolute bg-red-500 bg-opacity-75 h-full w-1/2 rounded-md
     duration-500;
+}
+
+.mj-btn {
+  @apply rounded-md border block px-4 py-2 w-full;
 }
 
 input#payment:checked ~ .mj-slideBar {

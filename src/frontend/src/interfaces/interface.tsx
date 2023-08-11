@@ -24,7 +24,7 @@ export interface ListContentProps {
 // molecules
 // organisms
 export interface FormProps {
-  finance: any;
+  finance?: any;
   callback: Function;
 }
 export interface ListProps {

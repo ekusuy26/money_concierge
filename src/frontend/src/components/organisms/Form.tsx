@@ -13,6 +13,7 @@ import Load from "@/components/molecules/Load";
 import axios from "axios";
 
 type Inputs = {
+  id: number;
   amount: string;
   date: string;
   category_id: string;
@@ -38,6 +39,7 @@ export default function Form({ finance = null, callback }: FormProps) {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
+      id: finance && finance.id,
       income_flg: finance ? String(finance.income_flg) : "0",
       category_id: finance ? String(finance.category_id) : "1",
       amount: finance && finance.amount,
@@ -45,21 +47,11 @@ export default function Form({ finance = null, callback }: FormProps) {
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // console.log(data);
-    // let d = new Date(data.date);
-    // var formatted = `${d.getFullYear()}-${(d.getMonth() + 1)
-    //   .toString()
-    //   .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}`.replace(
-    //   /\n|\r/g,
-    //   ""
-    // );
-
     data.email = "y.yuu6221@gmail.com";
-    // setisRegist(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/finance/store`, data)
       .then(function (response) {
-        callback();
+        callback("登録完了");
       })
       .catch(function (error) {
         console.log(error);
@@ -74,6 +66,7 @@ export default function Form({ finance = null, callback }: FormProps) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="hidden" {...register("id")} />
         <div className="border-b">
           <div className="relative grid grid-cols-2 divide-x border-t border-x rounded-lg mx-5 text-center">
             <label htmlFor="payment" className="py-2">
@@ -148,7 +141,7 @@ export default function Form({ finance = null, callback }: FormProps) {
               />
             ))}
           </div>
-          {errors.category && (
+          {errors.category_id && (
             <p className="text-xs text-red-500">This field is required</p>
           )}
         </div>
