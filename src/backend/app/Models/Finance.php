@@ -10,6 +10,15 @@ class Finance extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'income_flg',
+        'item_name',
+        'amount',
+        'memo',
+        'date',
+        'category_id',
+        'user_id',
+    ];
     /**
      * 
      * @return BelongsTo

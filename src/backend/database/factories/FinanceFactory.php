@@ -17,7 +17,7 @@ class FinanceFactory extends Factory
     public function definition(): array
     {
         return [
-            'income_flag' => $this->faker->boolean,
+            'income_flg' => $this->faker->boolean,
             'item_name' => random_int(0, 1) ? $this->faker->realText(10) : null,
             'amount' => $this->faker->numberBetween(10, 999999),
             'memo' => random_int(0, 1) ? $this->faker->realText(10) : null,

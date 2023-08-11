@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('finances', function (Blueprint $table) {
             $table->id();
-            $table->boolean('income_flag')->comment('収支フラグ(true: 収入, false: 支出)');
+            $table->boolean('income_flg')->default(false)->comment('収支フラグ(true: 収入, false: 支出)');
             $table->string('item_name')->nullable()->comment('項目名');
             $table->decimal('amount', 10, 0)->comment('金額');
             $table->text('memo')->nullable()->comment('メモ');
-            $table->date('date')->comment('日付');
+            $table->dateTime('date')->comment('日付');
             $table->unsignedBigInteger('category_id')->comment('カテゴリID');
             $table->string('user_id')->comment('ユーザーID');
             $table->timestamps();

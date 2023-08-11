@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\FinanceRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class FinanceService
 {
@@ -13,8 +14,8 @@ class FinanceService
     {
         $this->financeRepository = new FinanceRepository;
     }
+
     /**
-     * fetch all categories
      * 
      */
     public function fetchFinances()
@@ -23,5 +24,17 @@ class FinanceService
         $endDate = Carbon::now()->endOfMonth();
 
         return $this->financeRepository->fetchList($startDate, $endDate);
+    }
+
+    /**
+     * store finance
+     * 
+     */
+    public function storeFinance($attributes)
+    {
+        $userId = $this->financeRepository->fetchUserId($attributes['email']);
+        $attributes['user_id'] = $userId;
+        unset($attributes['email']);
+        return $this->financeRepository->store($attributes);
     }
 }

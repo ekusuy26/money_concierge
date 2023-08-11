@@ -10,13 +10,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormProps } from "@/interfaces/interface";
 import ButtonCategory from "@/components/molecules/ButtonCategory";
 import Load from "@/components/molecules/Load";
+import axios from "axios";
 
 type Inputs = {
   amount: string;
   date: string;
-  category: string;
-  balance: string;
+  category_id: string;
+  income_flg: string;
   memo: string;
+  email: string;
 };
 
 export default function Form({ finance = null, callback }: FormProps) {
@@ -26,6 +28,7 @@ export default function Form({ finance = null, callback }: FormProps) {
   );
   const init = finance === null ? new Date() : new Date(finance.date);
   const [startDate, setStartDate] = useState<Date | null>(init);
+  // console.log(startDate);
   // const [isRegist, setisRegist] = useState(false);
   const {
     register,
@@ -35,16 +38,32 @@ export default function Form({ finance = null, callback }: FormProps) {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      balance: finance ? String(finance.income_flag) : "0",
-      category: finance ? String(finance.category_id) : "1",
+      income_flg: finance ? String(finance.income_flg) : "0",
+      category_id: finance ? String(finance.category_id) : "1",
       amount: finance && finance.amount,
       memo: finance && finance.memo,
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    // console.log(data);
+    // let d = new Date(data.date);
+    // var formatted = `${d.getFullYear()}-${(d.getMonth() + 1)
+    //   .toString()
+    //   .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}`.replace(
+    //   /\n|\r/g,
+    //   ""
+    // );
+
+    data.email = "y.yuu6221@gmail.com";
     // setisRegist(true);
-    callback();
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/finance/store`, data)
+      .then(function (response) {
+        callback();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   // console.log(watch()); // watch input value by passing the name of it
@@ -65,7 +84,7 @@ export default function Form({ finance = null, callback }: FormProps) {
               className="hidden"
               id="payment"
               value={0}
-              {...register("balance", { required: true })}
+              {...register("income_flg", { required: true })}
             />
             <label htmlFor="income" className="py-2">
               収入
@@ -75,7 +94,7 @@ export default function Form({ finance = null, callback }: FormProps) {
               className="hidden"
               id="income"
               value={1}
-              {...register("balance", { required: true })}
+              {...register("income_flg", { required: true })}
             />
             <div className="mj-slideBar"></div>
           </div>
@@ -85,14 +104,14 @@ export default function Form({ finance = null, callback }: FormProps) {
           <Controller
             name="date"
             control={control}
-            defaultValue={startDate?.toString()}
+            defaultValue={startDate?.toLocaleString()}
             render={({ field }) => (
               <DatePicker
                 dateFormat="yyyy年MM月dd日"
                 selected={startDate}
                 onChange={(date) => {
                   setStartDate(date);
-                  field.onChange(date?.toString());
+                  field.onChange(date?.toLocaleString());
                 }}
                 className="bg-inherit outline-none p-3"
               />
@@ -125,7 +144,7 @@ export default function Form({ finance = null, callback }: FormProps) {
                 id={category.id}
                 name={category.name}
                 slug={category.slug}
-                register={register("category", { required: true })}
+                register={register("category_id", { required: true })}
               />
             ))}
           </div>

@@ -23,7 +23,7 @@ export default function ListContent({
             <span className="text-xs ms-3">{finance.item_name}</span>
           </p>
         </div>
-        <div className={finance.income_flag ? "text-blue-500" : "text-red-500"}>
+        <div className={finance.income_flg ? "text-blue-500" : "text-red-500"}>
           {Number(finance.amount).toLocaleString()}円
         </div>
       </button>
