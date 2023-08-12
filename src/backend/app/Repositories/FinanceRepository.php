@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class FinanceRepository
 {
@@ -42,7 +43,13 @@ class FinanceRepository
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
             ->whereBetween('date', [$startDate, $endDate])
             ->orderBy('date', 'desc')
-            ->get();
+            ->get()
+            ->transform(function ($item) {
+                $date = Carbon::parse($item->date);
+                $weekday = ['日', '月', '火', '水', '木', '金', '土'];
+                $item->formatDate = $date->format('Y年m月d日（' . $weekday[$date->dayOfWeek] . '）');
+                return $item;
+            });
     }
 
     public function fetchUserId($email): string

@@ -9,8 +9,10 @@ export default function Modal() {
   const [message, setMessage] = useState("");
 
   const closeModal = (message: string) => {
-    setMessage(message);
     setIsOpen(false);
+    setTimeout(() => {
+      setMessage(message);
+    }, 300);
   };
 
   return (

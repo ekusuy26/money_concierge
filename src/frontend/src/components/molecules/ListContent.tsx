@@ -9,7 +9,7 @@ export default function ListContent({
 }: ListContentProps) {
   return (
     <>
-      {date && <ListTitle title={finance.date} />}
+      {date && <ListTitle title={finance.formatDate} />}
       <button
         className="w-full flex justify-between items-center border-b px-5 py-2 bg-white"
         onClick={() => callback()}

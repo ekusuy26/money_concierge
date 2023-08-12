@@ -8,12 +8,39 @@ import Form from "@/components/organisms/Form";
 export default function History() {
   const [finance, setFinance] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
   const openModal = (finance) => {
     setIsOpen(true);
     setFinance(finance);
   };
+
+  const closeModal = (message: string) => {
+    setIsOpen(false);
+    setTimeout(() => {
+      setMessage(message);
+    }, 300);
+  };
+
   return (
     <>
+      {message && (
+        <div className="fixed inset-0 bg-slate-600 bg-opacity-70 z-blackOut">
+          <div className="flex items-center justify-center h-full">
+            <div className="bg-white w-full mx-5 rounded-md p-5">
+              <p className="text-center mb-5">{message}</p>
+              <div className="flex gap-4">
+                <button
+                  className="mj-btn bg-slate-800 text-white"
+                  onClick={() => setMessage("")}
+                >
+                  閉じる
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <List callback={openModal} />
       <CSSTransition
         in={isOpen}
@@ -27,7 +54,7 @@ export default function History() {
               <Svg slug="close" />
             </button>
           </div>
-          <Form finance={finance} callback={() => setIsOpen(false)} />
+          <Form finance={finance} callback={closeModal} />
         </div>
       </CSSTransition>
       <Modal />

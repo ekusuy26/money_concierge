@@ -24,7 +24,7 @@ export default function List({ callback }: ListProps) {
       {data.map((finance, i) => (
         <ListContent
           key={finance.id}
-          date={data[i - 1]?.date !== finance.date}
+          date={data[i - 1]?.formatDate !== finance.formatDate}
           finance={finance}
           callback={() => clickedContent(finance)}
         />
