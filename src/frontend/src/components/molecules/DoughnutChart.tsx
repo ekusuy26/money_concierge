@@ -4,17 +4,13 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-export default function DoughnutChart() {
+export default function DoughnutChart({ labels, colors, values }) {
   const data = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: labels,
     datasets: [
       {
-        data: [300, 500, 100],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
+        data: values,
+        backgroundColor: colors,
         hoverOffset: 4,
         datalabels: {
           formatter: (value, context) => {

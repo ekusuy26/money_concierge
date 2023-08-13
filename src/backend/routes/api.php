@@ -7,6 +7,7 @@ use App\Http\Controllers\Category\FetchCategoriesController;
 
 use App\Http\Controllers\Finance\FetchFinancesController;
 use App\Http\Controllers\Finance\StoreFinanceController;
+use App\Http\Controllers\Finance\FetchFinanceSummaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/category', FetchCategoriesController::class);
 
 Route::get('/finance', FetchFinancesController::class);
 Route::post('/finance/store', StoreFinanceController::class);
+Route::get('/finance/summary', FetchFinanceSummaryController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

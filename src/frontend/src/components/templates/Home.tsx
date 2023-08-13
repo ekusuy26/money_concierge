@@ -1,7 +1,25 @@
+import useSWR from "swr";
+import { fetcher } from "@/Fetcher";
+
 import DoughnutChart from "@/components/molecules/DoughnutChart";
 import Modal from "@/components/organisms/Modal";
+import Load from "../molecules/Load";
 
 export default function Home() {
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary`,
+    fetcher
+  );
+
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
+
+  const payment = data.values.reduce(
+    (sum: number, num: number) => Number(sum) + Number(num),
+    0
+  );
+  const total = data.income - payment;
+
   return (
     <>
       <div className="flex flex-col gap-3 p-5">
@@ -17,18 +35,28 @@ export default function Home() {
           </div>
           <div className="grid grid-rows-3 grid-cols-5 items-end text-right">
             <div className="row-span-3 col-span-2">
-              <DoughnutChart />
+              <DoughnutChart
+                labels={data.labels}
+                colors={data.colors}
+                values={data.values}
+              />
             </div>
             <div className="">収入</div>
             <div className="col-span-2 text-blue-400">
-              {(1000).toLocaleString()}円
+              {data.income.toLocaleString()}円
             </div>
             <div className="">支出</div>
             <div className="col-span-2 text-red-400">
-              {(1000).toLocaleString()}円
+              {payment.toLocaleString()}円
             </div>
             <div className="">収支</div>
-            <div className="col-span-2">{(1000).toLocaleString()}円</div>
+            <div
+              className={
+                "col-span-2 " + (total >= 0 ? "text-blue-400" : "text-red-400")
+              }
+            >
+              {Math.abs(total).toLocaleString()}円
+            </div>
           </div>
         </div>
       </div>

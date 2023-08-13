@@ -73,4 +73,35 @@ class FinanceRepository
         }
         return $this->bool;
     }
+
+    /**
+     * @return string
+     */
+    public function sumIncome($year = null, $month = null): string
+    {
+        if (is_null($year) || is_null($month)) {
+            $now = now();
+            $year = $now->year;
+            $month = $now->month;
+        }
+        return $this->finance->where('income_flg', true)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->sum('amount');
+    }
+    public function sumPaymentsByCategory($year = null, $month = null)
+    {
+        if (is_null($year) || is_null($month)) {
+            $now = now();
+            $year = $now->year;
+            $month = $now->month;
+        }
+        return $this->finance->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total_amount'))
+            ->leftJoin('categories', 'finances.category_id', 'categories.id')
+            ->where('income_flg', false)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->groupBy('category_id')
+            ->get();
+    }
 }
