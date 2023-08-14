@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+import Svg from "../atoms/Svg";
 
 type Inputs = {
   id: number;
@@ -25,7 +26,9 @@ export default function FormDeleteFinance({ id, callback }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" {...register("id")} />
-      <button type="submit">削除する</button>
+      <button type="submit" className="h-8 w-8 fill-red-500">
+        <Svg slug="trash" />
+      </button>
     </form>
   );
 }

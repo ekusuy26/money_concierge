@@ -28,6 +28,7 @@ export interface FormProps {
   callback: Function;
 }
 export interface ListProps {
+  finances: Finance[];
   callback: Function;
 }
 export interface MainMenuProps {

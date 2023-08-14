@@ -1,16 +1,27 @@
+import useSWR, { useSWRConfig } from "swr";
+import { fetcher } from "@/Fetcher";
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import { Finance } from "@/interfaces/interface";
 import Svg from "@/components/atoms/Svg";
+import Load from "@/components/molecules/Load";
 import List from "@/components/organisms/List";
 import Modal from "@/components/organisms/Modal";
+import Popup from "@/components/organisms/Popup";
 import Form from "@/components/organisms/Form";
 import FormDeleteFinance from "@/components/organisms/FormDeleteFinance";
-import { Finance } from "@/interfaces/interface";
 
 export default function History() {
   const [finance, setFinance] = useState<Finance | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
+
+  const { mutate } = useSWRConfig();
+
+  const { data, error, isLoading } = useSWR<Finance[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/finance`,
+    fetcher
+  );
 
   const openModal = (finance: Finance) => {
     setIsOpen(true);
@@ -18,31 +29,20 @@ export default function History() {
   };
 
   const closeModal = (message: string) => {
+    mutate(`${process.env.NEXT_PUBLIC_API_URL}/finance`);
     setIsOpen(false);
     setTimeout(() => {
       setMessage(message);
     }, 300);
   };
+
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
+
   return (
     <>
-      {message && (
-        <div className="fixed inset-0 bg-slate-600 bg-opacity-70 z-blackOut">
-          <div className="flex items-center justify-center h-full">
-            <div className="bg-white w-full mx-5 rounded-md p-5">
-              <p className="text-center mb-5">{message}</p>
-              <div className="flex gap-4">
-                <button
-                  className="mj-btn bg-slate-800 text-white"
-                  onClick={() => setMessage("")}
-                >
-                  閉じる
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      <List callback={openModal} />
+      {message && <Popup message={message} closeFunc={() => setMessage("")} />}
+      {data && <List finances={data} callback={openModal} />}
       <CSSTransition
         in={isOpen}
         timeout={500}
