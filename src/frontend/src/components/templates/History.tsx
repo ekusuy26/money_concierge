@@ -4,6 +4,7 @@ import Svg from "@/components/atoms/Svg";
 import List from "@/components/organisms/List";
 import Modal from "@/components/organisms/Modal";
 import Form from "@/components/organisms/Form";
+import FormDeleteFinance from "../organisms/FormDeleteFinance";
 
 export default function History() {
   const [finance, setFinance] = useState(false);
@@ -21,7 +22,6 @@ export default function History() {
       setMessage(message);
     }, 300);
   };
-
   return (
     <>
       {message && (
@@ -55,6 +55,7 @@ export default function History() {
             </button>
           </div>
           <Form finance={finance} callback={closeModal} />
+          <FormDeleteFinance id={finance?.id} callback={closeModal} />
         </div>
       </CSSTransition>
       <Modal />

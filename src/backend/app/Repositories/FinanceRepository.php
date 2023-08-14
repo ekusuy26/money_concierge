@@ -74,6 +74,21 @@ class FinanceRepository
         return $this->bool;
     }
 
+    public function delete($id): bool
+    {
+        DB::beginTransaction();
+        try {
+            $this->finance->findOrFail($id)->delete();
+            DB::commit();
+            $this->bool = true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('[fail delete finance]' . $e->getMessage());
+            $this->bool = false;
+        }
+        return $this->bool;
+    }
+
     /**
      * @return string
      */

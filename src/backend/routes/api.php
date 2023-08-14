@@ -8,6 +8,7 @@ use App\Http\Controllers\Category\FetchCategoriesController;
 use App\Http\Controllers\Finance\FetchFinancesController;
 use App\Http\Controllers\Finance\StoreFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryController;
+use App\Http\Controllers\Finance\DeleteFinanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('/category', FetchCategoriesController::class);
 
 Route::get('/finance', FetchFinancesController::class);
 Route::post('/finance/store', StoreFinanceController::class);
+Route::delete('/finance/{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
+// Route::delete('/finance/{id}', DeleteFinanceController::class);
 Route::get('/finance/summary', FetchFinanceSummaryController::class);
 
 

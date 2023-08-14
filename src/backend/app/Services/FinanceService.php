@@ -39,6 +39,15 @@ class FinanceService
     }
 
     /**
+     * store finance
+     * 
+     */
+    public function deleteFinance($id): bool
+    {
+        return $this->financeRepository->delete($id);
+    }
+
+    /**
      * 
      */
     public function fetchSummary()
