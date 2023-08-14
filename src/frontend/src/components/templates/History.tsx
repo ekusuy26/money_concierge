@@ -4,14 +4,15 @@ import Svg from "@/components/atoms/Svg";
 import List from "@/components/organisms/List";
 import Modal from "@/components/organisms/Modal";
 import Form from "@/components/organisms/Form";
-import FormDeleteFinance from "../organisms/FormDeleteFinance";
+import FormDeleteFinance from "@/components/organisms/FormDeleteFinance";
+import { Finance } from "@/interfaces/interface";
 
 export default function History() {
-  const [finance, setFinance] = useState(false);
+  const [finance, setFinance] = useState<Finance | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
 
-  const openModal = (finance) => {
+  const openModal = (finance: Finance) => {
     setIsOpen(true);
     setFinance(finance);
   };

@@ -34,3 +34,16 @@ export interface MainMenuProps {
   callback: Function;
 }
 // organisms
+
+export interface Finance {
+  id: number;
+  item_name: string | null;
+  amount: string;
+  date: string;
+  memo: string | null;
+  formatDate: string;
+  income_flg: boolean;
+  category_id: number;
+  category_name: string;
+  slug: string;
+}

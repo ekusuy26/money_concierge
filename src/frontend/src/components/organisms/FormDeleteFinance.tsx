@@ -25,7 +25,7 @@ export default function FormDeleteFinance({ id, callback }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" {...register("id")} />
-      <input type="submit" />
+      <button type="submit">削除する</button>
     </form>
   );
 }
