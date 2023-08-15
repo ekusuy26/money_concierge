@@ -3,7 +3,7 @@ import MainMenu from "@/components/organisms/MainMenu";
 export default function Page() {
   return (
     <>
-      <MainMenu current={"home"} />
+      <MainMenu current={"report"} />
     </>
   );
 }

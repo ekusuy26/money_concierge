@@ -16,6 +16,12 @@ export interface ButtonCategoryProps {
 export interface ButtonFixedProps {
   callback: Function;
 }
+export interface ButtonMainMenuProps {
+  title: string;
+  href: string;
+  slug: string;
+  isActive: boolean;
+}
 export interface ListContentProps {
   date: boolean;
   finance: any;
@@ -32,7 +38,7 @@ export interface ListProps {
   callback: Function;
 }
 export interface MainMenuProps {
-  callback: Function;
+  current: string;
 }
 // organisms
 
