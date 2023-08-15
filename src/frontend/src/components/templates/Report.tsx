@@ -1,4 +1,4 @@
-import Excerpt from "../organisms/Excerpt";
+import Excerpt from "@/components/organisms/Excerpt";
 
 export default function Report() {
   return (

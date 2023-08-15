@@ -1,20 +1,32 @@
 import { Finance, ListProps } from "@/interfaces/interface";
-import ListContent from "@/components/molecules/ListContent";
+import SwipeToDelete from "@/components/molecules/SwipeToDelete";
+import { useState } from "react";
 
-export default function List({ finances, callback }: ListProps) {
-  const clickedContent = (finance: Finance) => {
-    callback(finance);
+export default function List({ finances, onListClick, onDelete }: ListProps) {
+  const [activeSwipeToDelete, setActiveSwipeToDelete] =
+    useState<Finance | null>(null);
+
+  const handleSwipeStart = (finance: Finance) => {
+    setActiveSwipeToDelete(finance);
+  };
+
+  const handleSwipeEnd = (finance: Finance) => {
+    onListClick(finance);
+    setActiveSwipeToDelete(null);
   };
   return (
-    <>
+    <div className="overflow-hidden">
       {finances.map((finance, i) => (
-        <ListContent
+        <SwipeToDelete
           key={finance.id}
-          date={finances[i - 1]?.formatDate !== finance.formatDate}
           finance={finance}
-          callback={() => clickedContent(finance)}
+          date={finances[i - 1]?.formatDate !== finance.formatDate}
+          isActive={activeSwipeToDelete === finance}
+          onStart={() => handleSwipeStart(finance)}
+          onEnd={() => handleSwipeEnd(finance)}
+          callback={onDelete}
         />
       ))}
-    </>
+    </div>
   );
 }

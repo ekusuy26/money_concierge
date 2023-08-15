@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import Svg from "../atoms/Svg";
+import Svg from "@/components/atoms/Svg";
 
 type Inputs = {
   id: number;

@@ -1,7 +1,7 @@
 export default function Popup({
   message,
   closeFunc,
-  customBtnFunc,
+  customBtnFunc = null,
   customBtnTitle = "続けて入力する",
 }) {
   return (

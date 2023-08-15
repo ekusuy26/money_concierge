@@ -3,7 +3,7 @@ import { fetcher } from "@/Fetcher";
 
 import DoughnutChart from "@/components/molecules/DoughnutChart";
 import Modal from "@/components/organisms/Modal";
-import Load from "../molecules/Load";
+import Load from "@/components/molecules/Load";
 
 export default function Home() {
   const { data, error, isLoading } = useSWR(

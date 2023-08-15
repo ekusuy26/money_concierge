@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SwipeToDelete from "../molecules/SwipeToDelete";
+import SwipeToDelete from "@/components/molecules/SwipeToDelete";
 
 export default function Dev() {
   const [activeSwipeToDelete, setActiveSwipeToDelete] = useState(null);

@@ -22,11 +22,6 @@ export interface ButtonMainMenuProps {
   slug: string;
   isActive: boolean;
 }
-export interface ListContentProps {
-  date: boolean;
-  finance: any;
-  callback: Function;
-}
 // molecules
 // organisms
 export interface FormProps {
@@ -35,7 +30,8 @@ export interface FormProps {
 }
 export interface ListProps {
   finances: Finance[];
-  callback: Function;
+  onListClick: (arg0: Finance) => void;
+  onDelete: () => void;
 }
 export interface MainMenuProps {
   current: string;
