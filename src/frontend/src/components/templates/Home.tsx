@@ -45,7 +45,7 @@ export default function Home() {
             </div>
             <div className="">収入</div>
             <div className="col-span-2 text-blue-400">
-              {data.income.toLocaleString()}円
+              {Number(data.income).toLocaleString()}円
             </div>
             <div className="">支出</div>
             <div className="col-span-2 text-red-400">

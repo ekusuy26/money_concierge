@@ -1,9 +1,9 @@
-import Excerpt from "@/components/organisms/Excerpt";
+import ChartSwiper from "../organisms/ChartSwiper";
 
 export default function Report() {
   return (
     <>
-      <Excerpt />
+      <ChartSwiper />
     </>
   );
 }
