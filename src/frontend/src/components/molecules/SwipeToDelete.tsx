@@ -66,7 +66,7 @@ export default function SwipeToDelete({
       >
         <button className="w-full bg-white px-5 py-2">
           <div className="flex items-center">
-            <div className="h-8 w-8 rounded-full border inline-block">
+            <div className={`mj-categoryIconWrap ${finance.slug}`}>
               <Svg slug={finance.slug} />
             </div>
             <span className="ms-3">{finance.category_name}</span>

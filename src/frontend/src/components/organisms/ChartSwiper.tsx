@@ -30,9 +30,7 @@ export default function ChartSwiper() {
       >
         {karidata.map((data, i) => (
           <SwiperSlide key={i}>
-            <div className="h-80">
-              <CfExcerpt />
-            </div>
+            <CfExcerpt />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -7,6 +7,24 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        food: "#B0E57C",
+        dailyNecessities: "#FFD5B8",
+        traffic: "#A7DFFC",
+        companionship: "#FFD1E3",
+        clothes: "#E8E3FA",
+        beauty: "#FFFACD",
+        medical: "#FFC6A0",
+        special: "#FCE197",
+        hobby: "#BFFAB9",
+        miscellaneous: "#A0917F",
+        residence: "#C0C0C0",
+        lifeLine: "#C9EAB7",
+        communication: "#B0E2FF",
+        insurance: "#D1D1D1",
+        car: "#FF9999",
+        education: "#FFD8E6",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

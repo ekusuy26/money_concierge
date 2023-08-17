@@ -66,5 +66,57 @@ input#income:checked ~ .mj-slideBar {
 }
 
 .mj-chartSwiper .swiper-slide {
-  @apply w-2/3;
+  @apply w-1/2;
+}
+
+.mj-categoryIconWrap {
+  @apply h-8 w-8 rounded-full p-1 inline-block;
+}
+.mj-categoryIconWrap.food {
+  @apply bg-food;
+}
+.mj-categoryIconWrap.dailyNecessities {
+  @apply bg-dailyNecessities;
+}
+.mj-categoryIconWrap.traffic {
+  @apply bg-traffic;
+}
+.mj-categoryIconWrap.companionship {
+  @apply bg-companionship;
+}
+.mj-categoryIconWrap.clothes {
+  @apply bg-clothes;
+}
+.mj-categoryIconWrap.beauty {
+  @apply bg-beauty;
+}
+.mj-categoryIconWrap.medical {
+  @apply bg-medical;
+}
+.mj-categoryIconWrap.special {
+  @apply bg-special;
+}
+.mj-categoryIconWrap.hobby {
+  @apply bg-hobby;
+}
+.mj-categoryIconWrap.miscellaneous {
+  @apply bg-miscellaneous;
+}
+.mj-categoryIconWrap.residence {
+  @apply bg-residence;
+}
+.mj-categoryIconWrap.lifeLine {
+  @apply bg-lifeLine;
+}
+.mj-categoryIconWrap.communication {
+  @apply bg-communication;
+}
+.mj-categoryIconWrap.insurance {
+  @apply bg-insurance;
+}
+.mj-categoryIconWrap.car {
+  @apply bg-car;
+}
+.mj-categoryIconWrap.education {
+  @apply bg-education;
 }
