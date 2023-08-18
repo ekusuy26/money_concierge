@@ -1,49 +1,59 @@
+"use client";
+
 import Svg from "../atoms/Svg";
 import ChartSwiper from "../organisms/ChartSwiper";
+import useSWR, { useSWRConfig } from "swr";
+import { fetcher } from "@/Fetcher";
+import Load from "@/components/molecules/Load";
 
 export default function Report() {
-  const datas = [
-    { id: 1, name: "食費", slug: "food" },
-    { id: 2, name: "日用品", slug: "dailyNecessities" },
-    { id: 3, name: "交通", slug: "traffic" },
-    { id: 4, name: "交際", slug: "companionship" },
-    { id: 5, name: "被服", slug: "clothes" },
-    { id: 6, name: "美容", slug: "beauty" },
-    { id: 7, name: "医療", slug: "medical" },
-    { id: 8, name: "特別", slug: "special" },
-    { id: 9, name: "趣味", slug: "hobby" },
-    { id: 10, name: "雑費", slug: "miscellaneous" },
-    { id: 11, name: "住居", slug: "residence" },
-    { id: 12, name: "水道、光熱", slug: "lifeLine" },
-    { id: 13, name: "通信", slug: "communication" },
-    { id: 14, name: "保険", slug: "insurance" },
-    { id: 15, name: "自動車", slug: "car" },
-    { id: 16, name: "教育", slug: "education" },
-  ];
+  const {
+    data: listData,
+    error,
+    isLoading,
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/list`,
+    fetcher
+  );
+  // const {
+  //   data: hogeData,
+  //   error: hogeError,
+  //   isLoading: hogeIsLoading,
+  // } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/finance/summary`, fetcher);
+
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
   return (
     <>
       <ChartSwiper />
 
       <div className="border-t border-b divide-y text-sm">
-        {datas.map((data, _) => (
-          <div
-            key={data.id}
-            className="flex items-center justify-between px-5 py-2"
-          >
-            <div className="flex-grow">
-              <div className="flex items-center">
-                <div
-                  className={`mj-categoryIconWrap ${data.slug} h-8 w-8 rounded-full p-1`}
-                >
-                  <Svg slug={data.slug} />
+        {listData &&
+          listData.categories.map((line, _) => (
+            <div
+              key={line.category_id}
+              className="flex items-center justify-between px-5 py-2"
+            >
+              <div className="flex-grow">
+                <div className="flex items-center">
+                  <div
+                    className={`mj-categoryIconWrap ${line.slug} h-8 w-8 rounded-full p-1`}
+                  >
+                    <Svg slug={line.slug} />
+                  </div>
+                  <div className={"ms-3" + " bg-" + line.slug}>{line.name}</div>
+                  <div className="text-xs">
+                    {`( ${Number(
+                      ((line.total / listData.total_payment) * 100).toFixed(2)
+                    )}% )`}
+                  </div>
                 </div>
-                <div className={"ms-3" + " bg-" + data.slug}>{data.name}</div>
-                <div className="text-xs ms-auto">（10%）</div>
+              </div>
+              <div className="flex-none text-right">
+                {Number(line.total).toLocaleString()}円
               </div>
             </div>
-            <div className="flex-none text-right">1000000円</div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );

@@ -119,4 +119,49 @@ class FinanceRepository
             ->groupBy('category_id')
             ->get();
     }
+
+    public function getPaymentByCategoryForMonth($year, $month)
+    {
+        return $this->finance
+            ->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total'))
+            ->leftJoin('categories', 'finances.category_id', 'categories.id')
+            ->where('income_flg', false)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->groupBy('category_id')
+            ->get();
+    }
+
+    public function dev()
+    {
+        $now = now();
+        $year = $now->year;
+        $month = $now->month;
+
+        $result = [];
+        for ($i = -1; $i <= 1; $i++) {
+            $targetMonth = $month + $i;
+            if ($targetMonth < 1) {
+                $targetMonth = 12;
+            } elseif ($targetMonth > 12) {
+                $targetMonth = 1;
+            }
+            $targetYear = ($targetMonth < 1 || $targetMonth > 12) ? $year - 1 : $year;
+
+            $query = $this->finance
+                ->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total_amount'))
+                ->leftJoin('categories', 'finances.category_id', 'categories.id')
+                ->where('income_flg', false)
+                ->whereYear('date', $targetYear)
+                ->whereMonth('date', $targetMonth)
+                ->groupBy('category_id')
+                ->get();
+            $result[$targetYear .  sprintf('%02d', $targetMonth)] = [
+                'query' => $query,
+                'labels' => $query->pluck('name'),
+                'values' => $query->pluck('total_amount'),
+            ];
+        }
+        return $result;
+    }
 }
