@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->comment('名称');
             $table->string('slug')->comment('スラッグ');
+            $table->string('color')->comment('カラーコード');
 
             $table->timestamps();
         });

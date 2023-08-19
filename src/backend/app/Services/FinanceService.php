@@ -50,51 +50,24 @@ class FinanceService
     /**
      * 
      */
-    public function fetchSummaryList($year, $month)
+    public function fetchSummaries()
     {
-        $query =  $this->financeRepository->getPaymentByCategoryForMonth($year, $month);
-        return [
-            'total_payment' => $query->sum('total'),
-            'categories' => $query
-        ];
-    }
-    /**
-     * 
-     */
-    public function fetchSummary()
-    {
-        $summary = [
-            'label' => [],
-            'value' => [],
-            'colors' => [],
-            'income' => 0
-        ];
-        $colorPallet = [
-            "food" => "rgb(255, 99, 132)",
-            "dailyNecessities" => "rgb(54, 162, 235)",
-            "traffic" => "rgb(255, 205, 86)",
-            "companionship" => "rgb(255, 205, 86)",
-            "clothes" => "rgb(255, 205, 86)",
-            "beauty" => "rgb(255, 205, 86)",
-            "medical" => "rgb(255, 205, 86)",
-            "special" => "rgb(255, 205, 86)",
-            "hobby" => "rgb(255, 205, 86)",
-            "miscellaneous" => "rgb(255, 205, 86)",
-            "residence" => "rgb(255, 205, 86)",
-            "lifeLine" => "rgb(255, 205, 86)",
-            "communication" => "rgb(255, 205, 86)",
-            "insurance" => "rgb(255, 205, 86)",
-            "car" => "rgb(255, 205, 86)",
-            "education" => "rgb(255, 205, 86)",
-        ];
-        $query = $this->financeRepository->sumPaymentsByCategory();
-        $income = $this->financeRepository->sumIncome();
-        foreach ($query as $s) {
-            $summary['labels'][] = $s->name;
-            $summary['values'][] = $s->total_amount;
-            $summary['colors'][] = $colorPallet[$s->slug];
-            $summary['income'] = $income;
+        $query = $this->financeRepository->getCategoryPayment();
+        $summary = [];
+        foreach ($query as $q) {
+            $key = $q->month;
+            $summary[$key]['chart']['labels'][] = $q->name;
+            $summary[$key]['chart']['colors'][] = $q->color;
+            $summary[$key]['chart']['values'][] = $q->total_amount;
+            $summary[$key]['list'][] = $q;
         }
+        // $income = $this->financeRepository->sumIncome();
+        // foreach ($query as $s) {
+        //     $summary['labels'][] = $s->name;
+        //     $summary['values'][] = $s->total_amount;
+        //     $summary['colors'][] = $colorPallet[$s->slug];
+        //     $summary['income'] = $income;
+        // }
         return $summary;
     }
 }

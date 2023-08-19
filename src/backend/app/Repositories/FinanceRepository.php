@@ -89,79 +89,39 @@ class FinanceRepository
         return $this->bool;
     }
 
-    /**
-     * @return string
-     */
-    public function sumIncome($year = null, $month = null): string
-    {
-        if (is_null($year) || is_null($month)) {
-            $now = now();
-            $year = $now->year;
-            $month = $now->month;
-        }
-        return $this->finance->where('income_flg', true)
-            ->whereYear('date', $year)
-            ->whereMonth('date', $month)
-            ->sum('amount');
-    }
-    public function sumPaymentsByCategory($year = null, $month = null)
-    {
-        if (is_null($year) || is_null($month)) {
-            $now = now();
-            $year = $now->year;
-            $month = $now->month;
-        }
-        return $this->finance->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total_amount'))
-            ->leftJoin('categories', 'finances.category_id', 'categories.id')
-            ->where('income_flg', false)
-            ->whereYear('date', $year)
-            ->whereMonth('date', $month)
-            ->groupBy('category_id')
-            ->get();
-    }
+    // /**
+    //  * @return string
+    //  */
+    // public function sumIncome($year = null, $month = null): string
+    // {
+    //     if (is_null($year) || is_null($month)) {
+    //         $now = now();
+    //         $year = $now->year;
+    //         $month = $now->month;
+    //     }
+    //     return $this->finance->where('income_flg', true)
+    //         ->whereYear('date', $year)
+    //         ->whereMonth('date', $month)
+    //         ->sum('amount');
+    // }
 
-    public function getPaymentByCategoryForMonth($year, $month)
+    public function getCategoryPayment()
     {
+        $oneYearAgo = now()->subYear();
         return $this->finance
-            ->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total'))
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
             ->where('income_flg', false)
-            ->whereYear('date', $year)
-            ->whereMonth('date', $month)
-            ->groupBy('category_id')
+            ->where('date', '>=', $oneYearAgo)
+            ->select(
+                'categories.id',
+                'categories.name',
+                'categories.slug',
+                'categories.color',
+                \DB::raw('DATE_FORMAT(date, "%Y年%c月") as month'),
+                \DB::raw('SUM(amount) as total_amount')
+            )
+            ->groupBy('categories.id', 'categories.name', 'categories.slug', 'categories.color', 'month')
+            ->orderBy('month', 'desc')
             ->get();
-    }
-
-    public function dev()
-    {
-        $now = now();
-        $year = $now->year;
-        $month = $now->month;
-
-        $result = [];
-        for ($i = -1; $i <= 1; $i++) {
-            $targetMonth = $month + $i;
-            if ($targetMonth < 1) {
-                $targetMonth = 12;
-            } elseif ($targetMonth > 12) {
-                $targetMonth = 1;
-            }
-            $targetYear = ($targetMonth < 1 || $targetMonth > 12) ? $year - 1 : $year;
-
-            $query = $this->finance
-                ->select('category_id', 'categories.name', 'categories.slug', \DB::raw('SUM(amount) as total_amount'))
-                ->leftJoin('categories', 'finances.category_id', 'categories.id')
-                ->where('income_flg', false)
-                ->whereYear('date', $targetYear)
-                ->whereMonth('date', $targetMonth)
-                ->groupBy('category_id')
-                ->get();
-            $result[$targetYear .  sprintf('%02d', $targetMonth)] = [
-                'query' => $query,
-                'labels' => $query->pluck('name'),
-                'values' => $query->pluck('total_amount'),
-            ];
-        }
-        return $result;
     }
 }

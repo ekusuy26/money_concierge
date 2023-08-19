@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Services\FinanceService;
-use Illuminate\Http\Request;
 
 class FetchFinanceSummaryController extends Controller
 {
@@ -13,7 +12,7 @@ class FetchFinanceSummaryController extends Controller
      */
     public function __invoke(FinanceService $financeService)
     {
-        $summary = $financeService->fetchSummary();
+        $summary = $financeService->fetchSummaries();
         return response()->json($summary);
     }
 }

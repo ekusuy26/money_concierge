@@ -1,22 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import useSWR, { mutate } from "swr";
+import { fetcher } from "@/Fetcher";
+import { useEffect, useState } from "react";
 import ChartSwiper from "@/components/organisms/ChartSwiper";
 import SummaryList from "@/components/organisms/SummaryList";
+import Load from "@/components/molecules/Load";
 
 export default function Report() {
-  const today = new Date();
-  const [year, setYear] = useState<number>(today.getFullYear());
-  const [month, setMonth] = useState<number>(today.getMonth() + 1);
+  const [list, setList] = useState(null);
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary`,
+    fetcher
+  );
 
-  const handleSetDate = (year: number, month: number) => {
-    setYear(year);
-    setMonth(month);
-  };
+  useEffect(() => {
+    data && setList(Object.values(data)[0].list);
+  }, [data]);
+
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
   return (
     <>
-      <ChartSwiper isChange={handleSetDate} />
-      <SummaryList year={year} month={month} />
+      {data && <ChartSwiper data={data} isChange={setList} />}
+      {list && <SummaryList data={list} />}
     </>
   );
 }

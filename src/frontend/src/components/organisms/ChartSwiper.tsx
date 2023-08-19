@@ -1,32 +1,13 @@
-"use client";
-
-import useSWR from "swr";
-import { fetcher } from "@/Fetcher";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { EffectCoverflow, Pagination } from "swiper/modules";
-
-import Load from "@/components/molecules/Load";
 import CfExcerpt from "./CfExcerpt";
 
-export default function ChartSwiper({ isChange }) {
-  const {
-    data: chartData,
-    error: error,
-    isLoading: isLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/chart`,
-    fetcher
-  );
-
+export default function ChartSwiper({ data, isChange }) {
   const handleSlideChange = (swiper) => {
-    const activeData = chartData[swiper.activeIndex];
-    isChange(activeData.year, activeData.month);
+    const activeData = Object.values(data)[swiper.activeIndex];
+    activeData && isChange(activeData.list);
   };
-  if (error) return <Load status="fail" />;
-  if (isLoading) return <Load status="now" />;
-
   return (
     <>
       <Swiper
@@ -47,9 +28,9 @@ export default function ChartSwiper({ isChange }) {
         dir="rtl"
         onSlideChange={handleSlideChange}
       >
-        {chartData.map((data, i) => (
-          <SwiperSlide key={i}>
-            <CfExcerpt data={data} />
+        {Object.keys(data).map((key) => (
+          <SwiperSlide key={key}>
+            <CfExcerpt period={key} data={data[key].chart} />
           </SwiperSlide>
         ))}
       </Swiper>

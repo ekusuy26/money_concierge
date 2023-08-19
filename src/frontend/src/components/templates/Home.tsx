@@ -8,23 +8,23 @@ import Modal from "@/components/organisms/Modal";
 import Load from "@/components/molecules/Load";
 
 export default function Home() {
-  const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary`,
-    fetcher
-  );
+  // const { data, error, isLoading } = useSWR(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/finance/summary`,
+  //   fetcher
+  // );
 
-  if (error) return <Load status="fail" />;
-  if (isLoading) return <Load status="now" />;
+  // if (error) return <Load status="fail" />;
+  // if (isLoading) return <Load status="now" />;
 
-  const payment = data.values.reduce(
-    (sum: number, num: number) => Number(sum) + Number(num),
-    0
-  );
-  const total = data.income - payment;
+  // const payment = data.values.reduce(
+  //   (sum: number, num: number) => Number(sum) + Number(num),
+  //   0
+  // );
+  // const total = data.income - payment;
 
   return (
     <>
-      <div className="flex flex-col gap-3 p-5">
+      {/* <div className="flex flex-col gap-3 p-5">
         <div className="border rounded-lg p-5 shadow bg-white">
           <div className="flex justify-between items-end">
             <p>総資産</p>
@@ -61,7 +61,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <Modal />
     </>
   );
