@@ -50,3 +50,24 @@ export interface Finance {
   category_name: string;
   slug: string;
 }
+
+export interface Chart {
+  labels: string[];
+  colors: string[];
+  values: string[];
+}
+export interface List {
+  id: number;
+  name: string;
+  slug: string;
+  color: string;
+  month: string;
+  total_amount: string;
+}
+export interface Summary {
+  chart: Chart;
+  list: List[];
+}
+export interface ReportSWR {
+  [key: string]: Summary;
+}
