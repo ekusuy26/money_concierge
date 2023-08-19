@@ -11,9 +11,9 @@ class FetchFinanceSummaryListController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(FinanceService $financeService)
+    public function __invoke(FinanceService $financeService, int $year, int $month)
     {
-        $list = $financeService->fetchSummaryList();
+        $list = $financeService->fetchSummaryList($year, $month);
         return response()->json($list);
     }
 }

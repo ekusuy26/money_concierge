@@ -50,11 +50,8 @@ class FinanceService
     /**
      * 
      */
-    public function fetchSummaryList()
+    public function fetchSummaryList($year, $month)
     {
-        $now = now();
-        $year = $now->year;
-        $month = $now->month;
         $query =  $this->financeRepository->getPaymentByCategoryForMonth($year, $month);
         return [
             'total_payment' => $query->sum('total'),

@@ -10,6 +10,7 @@ use App\Http\Controllers\Finance\StoreFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryController;
 use App\Http\Controllers\Finance\DeleteFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryListController;
+use App\Http\Controllers\Finance\FetchFinanceSummaryChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,8 @@ Route::get('/finance', FetchFinancesController::class);
 Route::post('/finance/store', StoreFinanceController::class);
 Route::delete('/finance/{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
 Route::get('/finance/summary', FetchFinanceSummaryController::class);
-Route::get('/finance/summary/list', FetchFinanceSummaryListController::class);
+Route::get('/finance/summary/chart', FetchFinanceSummaryChartController::class);
+Route::get('/finance/summary/list/{year}/{month}', FetchFinanceSummaryListController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
