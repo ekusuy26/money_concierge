@@ -71,52 +71,52 @@ input#income:checked ~ .mj-slideBar {
 
 .mj-categoryIconWrap {
   @apply h-8 w-8 rounded-full p-1 inline-block;
-}
-.mj-categoryIconWrap.food {
-  @apply bg-food;
-}
-.mj-categoryIconWrap.dailyNecessities {
-  @apply bg-dailyNecessities;
-}
-.mj-categoryIconWrap.traffic {
-  @apply bg-traffic;
-}
-.mj-categoryIconWrap.companionship {
-  @apply bg-companionship;
-}
-.mj-categoryIconWrap.clothes {
-  @apply bg-clothes;
-}
-.mj-categoryIconWrap.beauty {
-  @apply bg-beauty;
-}
-.mj-categoryIconWrap.medical {
-  @apply bg-medical;
-}
-.mj-categoryIconWrap.special {
-  @apply bg-special;
-}
-.mj-categoryIconWrap.hobby {
-  @apply bg-hobby;
-}
-.mj-categoryIconWrap.miscellaneous {
-  @apply bg-miscellaneous;
-}
-.mj-categoryIconWrap.residence {
-  @apply bg-residence;
-}
-.mj-categoryIconWrap.lifeLine {
-  @apply bg-lifeLine;
-}
-.mj-categoryIconWrap.communication {
-  @apply bg-communication;
-}
-.mj-categoryIconWrap.insurance {
-  @apply bg-insurance;
-}
-.mj-categoryIconWrap.car {
-  @apply bg-car;
-}
-.mj-categoryIconWrap.education {
-  @apply bg-education;
+  &.food {
+    @apply bg-food;
+  }
+  &.dailyNecessities {
+    @apply bg-dailyNecessities;
+  }
+  &.traffic {
+    @apply bg-traffic;
+  }
+  &.companionship {
+    @apply bg-companionship;
+  }
+  &.clothes {
+    @apply bg-clothes;
+  }
+  &.beauty {
+    @apply bg-beauty;
+  }
+  &.medical {
+    @apply bg-medical;
+  }
+  &.special {
+    @apply bg-special;
+  }
+  &.hobby {
+    @apply bg-hobby;
+  }
+  &.miscellaneous {
+    @apply bg-miscellaneous;
+  }
+  &.residence {
+    @apply bg-residence;
+  }
+  &.lifeLine {
+    @apply bg-lifeLine;
+  }
+  &.communication {
+    @apply bg-communication;
+  }
+  &.insurance {
+    @apply bg-insurance;
+  }
+  &.car {
+    @apply bg-car;
+  }
+  &.education {
+    @apply bg-education;
+  }
 }
