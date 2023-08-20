@@ -1,6 +1,6 @@
 import Svg from "../atoms/Svg";
 
-export default function SummaryList({ data }) {
+export default function SummaryList({ data, payment }) {
   return (
     <>
       <div className="border-t border-b divide-y text-sm">
@@ -17,15 +17,15 @@ export default function SummaryList({ data }) {
                   <Svg slug={line.slug} />
                 </div>
                 <div className={"ms-3" + " bg-" + line.slug}>{line.name}</div>
-                <div className="text-xs">
-                  {/* {`( ${Number(
-                    ((line.total / listData.total_payment) * 100).toFixed(2)
-                  )}% )`} */}
-                </div>
               </div>
             </div>
             <div className="flex-none text-right">
-              {Number(line.total_amount).toLocaleString()}円
+              <p>{Number(line.total_amount).toLocaleString()}円</p>
+              <p className="text-xs">
+                {`( ${Number(
+                  ((line.total_amount / payment) * 100).toFixed(2)
+                )}% )`}
+              </p>
             </div>
           </div>
         ))}

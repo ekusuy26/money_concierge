@@ -17,6 +17,10 @@ export default function DoughnutChart({ labels, colors, values }) {
             const label = context.chart.data.labels[context.dataIndex];
             return label;
           },
+          align: "right",
+          font: {
+            size: "14",
+          },
         },
       },
     ],

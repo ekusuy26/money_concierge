@@ -121,6 +121,7 @@ class FinanceRepository
                 \DB::raw('SUM(amount) as total_amount')
             )
             ->groupBy('categories.id', 'categories.name', 'categories.slug', 'categories.color', 'month')
+            ->orderBy('categories.id', 'asc')
             ->orderBy('month', 'desc')
             ->get();
     }

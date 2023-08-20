@@ -67,6 +67,7 @@ export interface List {
 export interface Summary {
   chart: Chart;
   list: List[];
+  payment: number;
 }
 export interface ReportSWR {
   [key: string]: Summary;

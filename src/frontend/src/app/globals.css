@@ -66,7 +66,7 @@ input#income:checked ~ .mj-slideBar {
 }
 
 .mj-chartSwiper .swiper-slide {
-  @apply w-1/2;
+  @apply w-2/3 mx-3;
 }
 
 .mj-categoryIconWrap {

@@ -6,7 +6,7 @@ import CfExcerpt from "./CfExcerpt";
 export default function ChartSwiper({ data, isChange }) {
   const handleSlideChange = (swiper) => {
     const activeData = Object.values(data)[swiper.activeIndex];
-    activeData && isChange(activeData.list);
+    activeData && isChange(activeData.list, activeData.payment);
   };
   return (
     <>

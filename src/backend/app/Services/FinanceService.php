@@ -61,13 +61,9 @@ class FinanceService
             $summary[$key]['chart']['values'][] = $q->total_amount;
             $summary[$key]['list'][] = $q;
         }
-        // $income = $this->financeRepository->sumIncome();
-        // foreach ($query as $s) {
-        //     $summary['labels'][] = $s->name;
-        //     $summary['values'][] = $s->total_amount;
-        //     $summary['colors'][] = $colorPallet[$s->slug];
-        //     $summary['income'] = $income;
-        // }
+        foreach ($summary as $key => $s) {
+            $summary[$key]['payment'] = array_sum($s['chart']['values']);
+        }
         return $summary;
     }
 }
