@@ -105,14 +105,24 @@ class FinanceRepository
     //         ->sum('amount');
     // }
 
-    public function getCategoryPayment()
+    public function getCategoryPayment($year = null, $month = null)
     {
-        $oneYearAgo = now()->subYear();
+        $isSingleMonth = !is_null($year) && !is_null($month);
         return $this->finance
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
             ->where('income_flg', false)
-            ->where('date', '>=', $oneYearAgo)
-            ->select(
+            ->when(
+                $isSingleMonth,
+                function ($q) use ($year, $month) {
+                    return $q
+                        ->whereYear('date', $year)
+                        ->whereMonth('date', $month);
+                },
+                function ($q) {
+                    $oneYearAgo = now()->subYear();
+                    return $q->where('date', '>=', $oneYearAgo);
+                }
+            )->select(
                 'categories.id',
                 'categories.name',
                 'categories.slug',

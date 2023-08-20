@@ -12,7 +12,7 @@ export default function Report() {
   const [payment, setPayment] = useState<number>(0);
   const [list, setList] = useState<List[]>([]);
   const { data, error, isLoading } = useSWR<ReportSWR>(
-    `${process.env.NEXT_PUBLIC_API_URL}/finance/summary`,
+    `${process.env.NEXT_PUBLIC_API_URL}/finance/summaries`,
     fetcher
   );
 

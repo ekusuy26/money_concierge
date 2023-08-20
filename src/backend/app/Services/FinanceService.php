@@ -50,6 +50,24 @@ class FinanceService
     /**
      * 
      */
+    public function fetchSummary()
+    {
+        $today = now();
+        $year = $today->year;
+        $month = $today->month;
+        $query = $this->financeRepository->getCategoryPayment($year, $month);
+        $summary = [];
+        foreach ($query as $q) {
+            $summary['labels'][] = $q->name;
+            $summary['colors'][] = $q->color;
+            $summary['values'][] = $q->total_amount;
+        }
+        $summary['payment'] = array_sum($summary['values']);
+        return $summary;
+    }
+    /**
+     * 
+     */
     public function fetchSummaries()
     {
         $query = $this->financeRepository->getCategoryPayment();

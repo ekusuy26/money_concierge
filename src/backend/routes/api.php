@@ -8,9 +8,9 @@ use App\Http\Controllers\Category\FetchCategoriesController;
 use App\Http\Controllers\Finance\FetchFinancesController;
 use App\Http\Controllers\Finance\StoreFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryController;
+use App\Http\Controllers\Finance\FetchFinanceSummariesController;
 use App\Http\Controllers\Finance\DeleteFinanceController;
 // use App\Http\Controllers\Finance\FetchFinanceSummaryListController;
-// use App\Http\Controllers\Finance\FetchFinanceSummaryChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ Route::get('/finance', FetchFinancesController::class);
 Route::post('/finance/store', StoreFinanceController::class);
 Route::delete('/finance/{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
 Route::get('/finance/summary', FetchFinanceSummaryController::class);
+Route::get('/finance/summaries', FetchFinanceSummariesController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
