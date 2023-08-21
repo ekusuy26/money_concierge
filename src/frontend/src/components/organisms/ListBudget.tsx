@@ -8,17 +8,12 @@ import { useState } from "react";
 export default function ListBudget({ closeBtn }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const {
-    data: budgets,
-    error,
-    isLoading,
-  } = useSWR<any[]>(
+  const { data, error, isLoading } = useSWR<any[]>(
     `${process.env.NEXT_PUBLIC_API_URL}/category/budget`,
     fetcher
   );
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;
-  console.log(budgets);
   return (
     <>
       <div className="flex justify-between p-5">
@@ -29,11 +24,11 @@ export default function ListBudget({ closeBtn }) {
       </div>
       <div className="text-center border-y py-5">
         <p>合計支出</p>
-        <span className="text-4xl me-3">{(100000).toLocaleString()}</span>
+        <span className="text-4xl me-3">{data?.total.toLocaleString()}</span>
         円/月
       </div>
-      {budgets &&
-        budgets.map((budget, _) => (
+      {data &&
+        data.budgets.map((budget, _) => (
           <div
             key={budget.id}
             className="flex justify-between items-center px-5 py-2 border-b"
