@@ -20,4 +20,13 @@ class CategoryService
     {
         return $this->categoryRepository->fetchList();
     }
+
+    /**
+     * fetch all categories
+     * 
+     */
+    public function fetchBudget()
+    {
+        return $this->categoryRepository->fetchBudget();
+    }
 }

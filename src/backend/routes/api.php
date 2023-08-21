@@ -4,13 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Category\FetchCategoriesController;
+use App\Http\Controllers\Category\FetchBudgetController;
 
 use App\Http\Controllers\Finance\FetchFinancesController;
 use App\Http\Controllers\Finance\StoreFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryController;
 use App\Http\Controllers\Finance\FetchFinanceSummariesController;
 use App\Http\Controllers\Finance\DeleteFinanceController;
-// use App\Http\Controllers\Finance\FetchFinanceSummaryListController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,13 @@ Route::get('/', function () {
     return response()->json('hello world');
 });
 Route::get('/category', FetchCategoriesController::class);
+Route::get('/category/budget', FetchBudgetController::class);
 
 Route::get('/finance', FetchFinancesController::class);
 Route::post('/finance/store', StoreFinanceController::class);
 Route::delete('/finance/{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
 Route::get('/finance/summary', FetchFinanceSummaryController::class);
 Route::get('/finance/summaries', FetchFinanceSummariesController::class);
-
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

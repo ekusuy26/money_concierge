@@ -127,12 +127,13 @@ class FinanceRepository
                 'categories.name',
                 'categories.slug',
                 'categories.color',
-                \DB::raw('DATE_FORMAT(date, "%Y年%c月") as month'),
+                \DB::raw('DATE_FORMAT(date, "%Y-%m") as month'),
+                // \DB::raw('DATE_FORMAT(date, "%Y年%c月") as formatted_month'),
                 \DB::raw('SUM(amount) as total_amount')
             )
             ->groupBy('categories.id', 'categories.name', 'categories.slug', 'categories.color', 'month')
-            ->orderBy('categories.id', 'asc')
             ->orderBy('month', 'desc')
+            ->orderBy('categories.id', 'asc')
             ->get();
     }
 }
