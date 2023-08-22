@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { fetcher } from "@/Fetcher";
 import { CSSTransition } from "react-transition-group";
@@ -12,20 +12,17 @@ import Popup from "@/components/organisms/Popup";
 import Modal from "@/components/organisms/Modal";
 import Form from "@/components/organisms/Form";
 import FormDeleteFinance from "@/components/organisms/FormDeleteFinance";
-import { useSession } from "next-auth/react";
-import { UserSession } from "@/interfaces/interface";
 
 export default function CashFlow() {
+  const [userId, setUserId] = useState();
   const [message, setMessage] = useState("");
   const [finance, setFinance] = useState<Finance | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const { mutate } = useSWRConfig();
 
-  const { data: session, status } = useSession();
-  const user: UserSession | undefined = session?.user;
   const { data, error, isLoading } = useSWR<Finance[]>(
-    user ? `${process.env.NEXT_PUBLIC_API_URL}/finance/${user.id}` : null,
+    userId ? `${process.env.NEXT_PUBLIC_API_URL}/finance/${userId}` : null,
     fetcher
   );
 
@@ -42,9 +39,18 @@ export default function CashFlow() {
     setFinance(finance);
   };
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await fetch("/api/userId");
+      const data = await response.json();
+      setUserId(data.userId);
+    };
+    fetchUserId();
+  }, []);
+
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;
-  console.log(data);
+
   return (
     <>
       {message && <Popup message={message} closeFunc={() => setMessage("")} />}

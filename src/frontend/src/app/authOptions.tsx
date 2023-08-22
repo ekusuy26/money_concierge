@@ -33,38 +33,6 @@ export const authOptions: NextAuthOptions = {
       },
       from: process.env.EMAIL_FROM,
     }),
-    // CredentialsProvider({
-    //   name: "Sign in",
-    //   credentials: {
-    //     email: {
-    //       label: "Email",
-    //       type: "email",
-    //       placeholder: "example@example.com",
-    //     },
-    //     password: { label: "Password", type: "password" },
-    //   },
-    //   // メルアド認証処理
-    //   async authorize(credentials) {
-    //     const users = [
-    //       { id: "1", email: "user1@example.com", password: "password1" },
-    //       { id: "2", email: "user2@example.com", password: "password2" },
-    //       { id: "3", email: "abc@abc", password: "123" },
-    //     ];
-
-    //     const user = users.find((user) => user.email === credentials?.email);
-
-    //     if (user && user?.password === credentials?.password) {
-    //       return {
-    //         id: user.id,
-    //         name: user.email,
-    //         email: user.email,
-    //         role: "admin",
-    //       };
-    //     } else {
-    //       return null;
-    //     }
-    //   },
-    // }),
   ],
   callbacks: {
     jwt: async ({ token, user, account, profile, isNewUser }) => {

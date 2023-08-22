@@ -2,22 +2,30 @@
 
 import useSWR from "swr";
 import { fetcher } from "@/Fetcher";
-import { useSession } from "next-auth/react";
-import { UserSession } from "@/interfaces/interface";
 
 import DoughnutChart from "@/components/molecules/DoughnutChart";
 import Modal from "@/components/organisms/Modal";
 import Load from "@/components/molecules/Load";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const user: UserSession | undefined = session?.user;
+  const [userId, setUserId] = useState();
+
   const { data, error, isLoading } = useSWR(
-    user
-      ? `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/${user.id}`
+    userId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/${userId}`
       : null,
     fetcher
   );
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await fetch("/api/userId");
+      const data = await response.json();
+      setUserId(data.userId);
+    };
+    fetchUserId();
+  }, []);
 
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;
