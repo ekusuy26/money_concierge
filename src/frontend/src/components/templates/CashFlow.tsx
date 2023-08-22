@@ -27,7 +27,9 @@ export default function CashFlow() {
   );
 
   const closeModal = (message: string) => {
-    mutate(`${process.env.NEXT_PUBLIC_API_URL}/finance`);
+    mutate(
+      userId ? `${process.env.NEXT_PUBLIC_API_URL}/finance/${userId}` : null
+    );
     setIsOpen(false);
     setTimeout(() => {
       setMessage(message);
