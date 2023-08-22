@@ -9,10 +9,14 @@ import SummaryList from "@/components/organisms/SummaryList";
 import Load from "@/components/molecules/Load";
 
 export default function Report() {
+  const [userId, setUserId] = useState("");
+
   const [payment, setPayment] = useState<number>(0);
   const [list, setList] = useState<List[]>([]);
   const { data, error, isLoading } = useSWR<ReportSWR>(
-    `${process.env.NEXT_PUBLIC_API_URL}/finance/summaries`,
+    userId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/finance/summaries/${userId}`
+      : null,
     fetcher
   );
 
@@ -27,6 +31,15 @@ export default function Report() {
       setList(Object.values(data)[0].list);
     }
   }, [data]);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await fetch("/api/userId");
+      const data = await response.json();
+      setUserId(data.userId);
+    };
+    fetchUserId();
+  }, []);
 
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;

@@ -67,9 +67,9 @@ class FinanceService
     /**
      * 
      */
-    public function fetchSummaries()
+    public function fetchSummaries($userId)
     {
-        $query = $this->financeRepository->getCategoryPayment();
+        $query = $this->financeRepository->getCategoryPayment($userId);
         $summary = [];
         foreach ($query as $q) {
             $key = $q->month;
@@ -78,8 +78,10 @@ class FinanceService
             $summary[$key]['chart']['values'][] = $q->total_amount;
             $summary[$key]['list'][] = $q;
         }
-        foreach ($summary as $key => $s) {
-            $summary[$key]['payment'] = array_sum($s['chart']['values']);
+        if (!empty($summary)) {
+            foreach ($summary as $key => $s) {
+                $summary[$key]['payment'] = array_key_exists('values', $s['chart']) ? array_sum($s['chart']['values']) : 0;
+            }
         }
         return $summary;
     }

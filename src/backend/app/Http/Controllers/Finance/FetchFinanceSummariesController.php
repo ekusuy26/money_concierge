@@ -10,9 +10,9 @@ class FetchFinanceSummariesController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(FinanceService $financeService)
+    public function __invoke(FinanceService $financeService, string $userId)
     {
-        $summary = $financeService->fetchSummaries();
+        $summary = $financeService->fetchSummaries($userId);
         return response()->json($summary);
     }
 }

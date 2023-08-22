@@ -35,7 +35,7 @@ Route::group(['prefix' => 'finance', 'as' => 'finance.'], function () {
     Route::post('store', StoreFinanceController::class);
     Route::delete('{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
     Route::get('summary/{userId}', FetchFinanceSummaryController::class);
-    Route::get('summaries', FetchFinanceSummariesController::class);
+    Route::get('summaries/{userId}', FetchFinanceSummariesController::class);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
