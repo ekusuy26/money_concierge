@@ -26,7 +26,7 @@ class FinanceRepository
      * 
      * @return Collection<Finance>
      */
-    public function fetchList($startDate, $endDate): Collection
+    public function fetchList($userId, $startDate, $endDate): Collection
     {
         return $this->finance
             ->select(
@@ -41,6 +41,7 @@ class FinanceRepository
                 'memo'
             )
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
+            ->where('user_id', $userId)
             ->whereBetween('date', [$startDate, $endDate])
             ->orderBy('date', 'desc')
             ->get()
@@ -105,11 +106,12 @@ class FinanceRepository
     //         ->sum('amount');
     // }
 
-    public function getCategoryPayment($year = null, $month = null)
+    public function getCategoryPayment($userId, $year = null, $month = null)
     {
         $isSingleMonth = !is_null($year) && !is_null($month);
         return $this->finance
             ->leftJoin('categories', 'finances.category_id', 'categories.id')
+            ->where('user_id', $userId)
             ->where('income_flg', false)
             ->when(
                 $isSingleMonth,

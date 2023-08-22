@@ -12,6 +12,8 @@ import Popup from "@/components/organisms/Popup";
 import Modal from "@/components/organisms/Modal";
 import Form from "@/components/organisms/Form";
 import FormDeleteFinance from "@/components/organisms/FormDeleteFinance";
+import { useSession } from "next-auth/react";
+import { UserSession } from "@/interfaces/interface";
 
 export default function CashFlow() {
   const [message, setMessage] = useState("");
@@ -20,8 +22,10 @@ export default function CashFlow() {
 
   const { mutate } = useSWRConfig();
 
+  const { data: session, status } = useSession();
+  const user: UserSession | undefined = session?.user;
   const { data, error, isLoading } = useSWR<Finance[]>(
-    `${process.env.NEXT_PUBLIC_API_URL}/finance`,
+    user ? `${process.env.NEXT_PUBLIC_API_URL}/finance/${user.id}` : null,
     fetcher
   );
 
@@ -40,7 +44,7 @@ export default function CashFlow() {
 
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;
-
+  console.log(data);
   return (
     <>
       {message && <Popup message={message} closeFunc={() => setMessage("")} />}
@@ -50,6 +54,9 @@ export default function CashFlow() {
           onListClick={openModal}
           onDelete={() => mutate(`${process.env.NEXT_PUBLIC_API_URL}/finance`)}
         />
+      )}
+      {data && Object.keys(data).length === 0 && (
+        <p>対象のデータは存在しません</p>
       )}
       <CSSTransition
         in={isOpen}

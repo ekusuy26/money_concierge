@@ -30,12 +30,23 @@ Route::get('/', function () {
 Route::get('/category', FetchCategoriesController::class);
 Route::get('/category/budget', FetchBudgetController::class);
 
-Route::get('/finance', FetchFinancesController::class);
-Route::post('/finance/store', StoreFinanceController::class);
-Route::delete('/finance/{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
-Route::get('/finance/summary', FetchFinanceSummaryController::class);
-Route::get('/finance/summaries', FetchFinanceSummariesController::class);
+Route::group(['prefix' => 'finance', 'as' => 'finance.'], function () {
+    Route::get('{userId}', FetchFinancesController::class);
+    Route::post('store', StoreFinanceController::class);
+    Route::delete('{id}', DeleteFinanceController::class)->where('id', '[0-9]+');
+    Route::get('summary/{userId}', FetchFinanceSummaryController::class);
+    Route::get('summaries', FetchFinanceSummariesController::class);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::get('/dev', function (Request $request) {
+//     $value = $request->cookie();
+//     $session = session();
+//     dd($value, $session);
+
+//     $bool = auth()->check();
+//     return response()->json(compact('bool'));
+// });

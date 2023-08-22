@@ -72,3 +72,10 @@ export interface Summary {
 export interface ReportSWR {
   [key: string]: Summary;
 }
+
+export interface UserSession {
+  id?: string | null | undefined;
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
+}

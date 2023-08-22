@@ -66,31 +66,27 @@ export const authOptions: NextAuthOptions = {
     //   },
     // }),
   ],
-  // callbacks: {
-  //   jwt: async ({ token, user, account, profile, isNewUser }) => {
-  //     // 注意: トークンをログ出力してはダメです。
-  //     // console.log("in jwt", { user, token, account, profile });
-
-  //     if (user) {
-  //       token.user = user;
-  //       const u = user as any;
-  //       token.role = u.role;
-  //     }
-  //     if (account) {
-  //       token.accessToken = account.access_token;
-  //     }
-  //     return token;
-  //   },
-  //   session: ({ session, token }) => {
-  //     // console.log("in session", { session, token });
-  //     token.accessToken;
-  //     return {
-  //       ...session,
-  //       user: {
-  //         ...session.user,
-  //         role: token.role,
-  //       },
-  //     };
-  //   },
-  // },
+  callbacks: {
+    jwt: async ({ token, user, account, profile, isNewUser }) => {
+      if (user) {
+        token.user = user;
+        const u = user as any;
+        token.id = u.id;
+      }
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      token.accessToken;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+        },
+      };
+    },
+  },
 };
