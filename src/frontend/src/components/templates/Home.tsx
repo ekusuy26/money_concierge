@@ -9,8 +9,7 @@ import Load from "@/components/molecules/Load";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [userId, setUserId] = useState();
-
+  const [userId, setUserId] = useState("");
   const { data, error, isLoading } = useSWR(
     userId
       ? `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/${userId}`

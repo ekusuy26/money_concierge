@@ -19,10 +19,12 @@ type Inputs = {
   category_id: string;
   income_flg: string;
   memo: string;
-  email: string;
+  user_id: string;
 };
 
 export default function Form({ finance = null, callback }: FormProps) {
+  const [userId, setUserId] = useState("");
+
   const { data, error, isLoading } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/category`,
     fetcher
@@ -47,7 +49,9 @@ export default function Form({ finance = null, callback }: FormProps) {
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    data.email = "y.yuu6221@gmail.com";
+    if (userId !== "") {
+      data.user_id = userId;
+    }
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/finance/store`, data)
       .then(function (response) {
@@ -57,6 +61,15 @@ export default function Form({ finance = null, callback }: FormProps) {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await fetch("/api/userId");
+      const data = await response.json();
+      setUserId(data.userId);
+    };
+    fetchUserId();
+  }, []);
 
   // console.log(watch()); // watch input value by passing the name of it
 

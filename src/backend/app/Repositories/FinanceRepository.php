@@ -53,12 +53,6 @@ class FinanceRepository
             });
     }
 
-    public function fetchUserId($email): string
-    {
-        $user = $this->user->where('email', $email)->first();
-        return $user->id;
-    }
-
     public function store($attributes)
     {
 

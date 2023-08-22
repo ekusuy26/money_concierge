@@ -32,9 +32,6 @@ class FinanceService
      */
     public function storeFinance($attributes)
     {
-        $userId = $this->financeRepository->fetchUserId($attributes['email']);
-        $attributes['user_id'] = $userId;
-        unset($attributes['email']);
         return $this->financeRepository->store($attributes);
     }
 
