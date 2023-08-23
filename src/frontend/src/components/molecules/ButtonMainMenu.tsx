@@ -11,7 +11,9 @@ export default function ButtonMainMenu({
   return (
     <Link
       className={`flex items-center justify-center ${
-        isActive ? "bg-red-500" : ""
+        isActive
+          ? "bg-main text-baseWhite fill-baseWhite"
+          : "text-accent fill-accent"
       }`}
       href={href}
     >

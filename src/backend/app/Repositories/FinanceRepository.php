@@ -84,21 +84,24 @@ class FinanceRepository
         return $this->bool;
     }
 
-    // /**
-    //  * @return string
-    //  */
-    // public function sumIncome($year = null, $month = null): string
-    // {
-    //     if (is_null($year) || is_null($month)) {
-    //         $now = now();
-    //         $year = $now->year;
-    //         $month = $now->month;
-    //     }
-    //     return $this->finance->where('income_flg', true)
-    //         ->whereYear('date', $year)
-    //         ->whereMonth('date', $month)
-    //         ->sum('amount');
-    // }
+    /**
+     * @return string
+     */
+    public function sumAmount($userId, $isIncome, $year = null, $month = null): string
+    {
+        $isSingleMonth = !is_null($year) && !is_null($month);
+        return $this->finance->where('income_flg', $isIncome)
+            ->where('user_id', $userId)
+            ->when(
+                $isSingleMonth,
+                function ($q) use ($year, $month) {
+                    return $q
+                        ->whereYear('date', $year)
+                        ->whereMonth('date', $month);
+                }
+            )
+            ->sum('amount');
+    }
 
     public function getCategoryPayment($userId, $year = null, $month = null)
     {

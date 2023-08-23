@@ -25,9 +25,9 @@ class CategoryService
      * fetch all categories
      * 
      */
-    public function fetchBudget()
+    public function fetchBudget($userId)
     {
-        $budgets = $this->categoryRepository->fetchBudget();
+        $budgets = $this->categoryRepository->fetchBudget($userId);
         $total = $budgets->sum('total_amount');
         return [
             'budgets' => $budgets,

@@ -3,15 +3,28 @@ import { fetcher } from "@/Fetcher";
 import Load from "@/components/molecules/Load";
 import Svg from "../atoms/Svg";
 import { CSSTransition } from "react-transition-group";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ListBudget({ closeBtn }) {
+  const [userId, setUserId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const { data, error, isLoading } = useSWR<any[]>(
-    `${process.env.NEXT_PUBLIC_API_URL}/category/budget`,
+    userId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/category/budget/${userId}`
+      : null,
     fetcher
   );
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const response = await fetch("/api/userId");
+      const data = await response.json();
+      setUserId(data.userId);
+    };
+    fetchUserId();
+  }, []);
+
   if (error) return <Load status="fail" />;
   if (isLoading) return <Load status="now" />;
   return (

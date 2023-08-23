@@ -24,11 +24,10 @@ use App\Http\Controllers\Finance\DeleteFinanceController;
 |
 */
 
-Route::get('/', function () {
-    return response()->json('hello world');
+Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+    Route::get('/', FetchCategoriesController::class);
+    Route::get('/budget/{userId}', FetchBudgetController::class);
 });
-Route::get('/category', FetchCategoriesController::class);
-Route::get('/category/budget', FetchBudgetController::class);
 
 Route::group(['prefix' => 'finance', 'as' => 'finance.'], function () {
     Route::get('{userId}', FetchFinancesController::class);
@@ -38,15 +37,6 @@ Route::group(['prefix' => 'finance', 'as' => 'finance.'], function () {
     Route::get('summaries/{userId}', FetchFinanceSummariesController::class);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// Route::get('/dev', function (Request $request) {
-//     $value = $request->cookie();
-//     $session = session();
-//     dd($value, $session);
-
-//     $bool = auth()->check();
-//     return response()->json(compact('bool'));
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
 // });

@@ -36,22 +36,22 @@ export default function Home() {
             <div className="mb-2">
               今月の収支<span className="text-sm ms-3">2023/8/1~2023/8/31</span>
             </div>
-            {Object.keys(data).length !== 0 ? (
+            {Object.keys(data.summary).length !== 0 ? (
               <div className="grid grid-rows-3 grid-cols-5 items-end text-right">
                 <div className="row-span-3 col-span-2">
                   <DoughnutChart
-                    labels={data.labels}
-                    colors={data.colors}
-                    values={data.values}
+                    labels={data.summary.labels}
+                    colors={data.summary.colors}
+                    values={data.summary.values}
                   />
                 </div>
                 <div className="">収入</div>
                 <div className="col-span-2 text-blue-400">
-                  {/* {Number(data.income).toLocaleString()}円 */}
+                  {Number(data.income).toLocaleString()}円
                 </div>
                 <div className="">支出</div>
                 <div className="col-span-2 text-red-400">
-                  {data.payment.toLocaleString()}円
+                  {Number(data.payment).toLocaleString()}円
                 </div>
                 <div className="">収支</div>
                 <div

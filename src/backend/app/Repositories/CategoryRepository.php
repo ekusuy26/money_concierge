@@ -35,14 +35,14 @@ class CategoryRepository
      * 
      * @return Collection<Finance>
      */
-    public function fetchBudget()
+    public function fetchBudget($userId)
     {
         $budgets = $this->budget
             ->leftJoin('categories', 'budgets.category_id', 'categories.id')
             ->pluck('amount', 'category_id')
             ->toArray();
         $financeRepository = new FinanceRepository;
-        $achievements = $financeRepository->getCategoryPayment(2023, 8);
+        $achievements = $financeRepository->getCategoryPayment($userId, 2023, 8);
         foreach ($achievements as $a) {
             $a->budget = $budgets[$a->id];
             $percentage = ($a->total_amount / $a->budget) * 100;

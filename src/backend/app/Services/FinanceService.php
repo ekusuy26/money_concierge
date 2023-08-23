@@ -44,6 +44,20 @@ class FinanceService
         return $this->financeRepository->delete($id);
     }
 
+    public function fetchIncome($userId)
+    {
+        $today = now();
+        $year = $today->year;
+        $month = $today->month;
+        return $this->financeRepository->sumAmount($userId, true, $year, $month);
+    }
+    public function fetchPayment($userId)
+    {
+        $today = now();
+        $year = $today->year;
+        $month = $today->month;
+        return $this->financeRepository->sumAmount($userId, false, $year, $month);
+    }
     /**
      * 
      */
@@ -58,9 +72,6 @@ class FinanceService
             $summary['labels'][] = $q->name;
             $summary['colors'][] = $q->color;
             $summary['values'][] = $q->total_amount;
-        }
-        if (array_key_exists('values', $summary)) {
-            $summary['payment'] = array_sum($summary['values']);
         }
         return $summary;
     }
