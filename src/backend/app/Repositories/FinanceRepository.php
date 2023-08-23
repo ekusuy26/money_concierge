@@ -136,4 +136,18 @@ class FinanceRepository
             // ->orderBy('categories.id', 'asc')
             ->get();
     }
+
+    public function fetchCostsForCurrentMonth($userId, $year, $month)
+    {
+        return $this->finance->select(
+            'variable_flg as cost',
+            \DB::raw('SUM(amount) as payment')
+        )
+            ->leftJoin('categories', 'finances.category_id', 'categories.id')
+            ->where('user_id', $userId)
+            ->where('income_flg', false)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->groupBy('cost');
+    }
 }

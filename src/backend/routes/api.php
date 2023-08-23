@@ -5,13 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Category\FetchCategoriesController;
 use App\Http\Controllers\Category\FetchBudgetController;
-
+use App\Http\Controllers\Category\FetchBudgetSummaryController;
 use App\Http\Controllers\Finance\FetchFinancesController;
 use App\Http\Controllers\Finance\StoreFinanceController;
 use App\Http\Controllers\Finance\FetchFinanceSummaryController;
 use App\Http\Controllers\Finance\FetchFinanceSummariesController;
 use App\Http\Controllers\Finance\DeleteFinanceController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +23,13 @@ use App\Http\Controllers\Finance\DeleteFinanceController;
 |
 */
 
+// Route::get('/', function () {
+// });
+
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', FetchCategoriesController::class);
     Route::get('/budget/{userId}', FetchBudgetController::class);
+    Route::get('/budget/summary/{userId}', FetchBudgetSummaryController::class);
 });
 
 Route::group(['prefix' => 'finance', 'as' => 'finance.'], function () {

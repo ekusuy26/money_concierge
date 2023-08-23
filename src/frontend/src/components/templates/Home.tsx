@@ -7,12 +7,24 @@ import DoughnutChart from "@/components/molecules/DoughnutChart";
 import Modal from "@/components/organisms/Modal";
 import Load from "@/components/molecules/Load";
 import { useEffect, useState } from "react";
+import Card from "../molecules/Card";
+import ProgressBar from "../atoms/ProgressBar";
 
 export default function Home() {
   const [userId, setUserId] = useState("");
   const { data, error, isLoading } = useSWR(
     userId
       ? `${process.env.NEXT_PUBLIC_API_URL}/finance/summary/${userId}`
+      : null,
+    fetcher
+  );
+  const {
+    data: budgets,
+    error: budgetsError,
+    isLoading: budgetsIsLoading,
+  } = useSWR(
+    userId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/category/budget/summary/${userId}`
       : null,
     fetcher
   );
@@ -26,8 +38,9 @@ export default function Home() {
     fetchUserId();
   }, []);
 
-  if (error) return <Load status="fail" />;
-  if (isLoading) return <Load status="now" />;
+  if (error || budgetsError) return <Load status="fail" />;
+  if (isLoading || budgetsIsLoading) return <Load status="now" />;
+  console.log(budgets);
   return (
     <>
       {data && (
@@ -69,6 +82,22 @@ export default function Home() {
           </div>
         </div>
       )}
+      <Card>
+        <div className="flex flex-col divide-y">
+          {budgets &&
+            budgets.map((budget, _) => (
+              <div key={budget.cost_name} className="py-5">
+                <ProgressBar
+                  percent={budget.cost_percentage}
+                  colorCode={"#000000"}
+                  title={budget.cost_name}
+                  current={Number(budget.cost)}
+                  max={Number(budget.budget)}
+                />
+              </div>
+            ))}
+        </div>
+      </Card>
       <Modal />
     </>
   );

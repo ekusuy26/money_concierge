@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->comment('名称');
             $table->string('slug')->comment('スラッグ');
             $table->string('color')->comment('カラーコード');
+            $table->boolean('variable_flg')->default(true)->comment('費用フラグ(true: 変動費, false: 固定費)');
 
             $table->timestamps();
         });

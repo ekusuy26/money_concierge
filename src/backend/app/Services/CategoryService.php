@@ -3,14 +3,16 @@
 namespace App\Services;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\FinanceRepository;
 
 class CategoryService
 {
-    private $categoryRepository;
+    private $categoryRepository, $financeRepository;
 
     function __construct()
     {
         $this->categoryRepository = new CategoryRepository;
+        $this->financeRepository = new FinanceRepository;
     }
     /**
      * fetch all categories
@@ -21,6 +23,17 @@ class CategoryService
         return $this->categoryRepository->fetchList();
     }
 
+    /**
+     * 
+     */
+    public function fetchBudgetSummary($userId)
+    {
+        $today = now();
+        $year = $today->year;
+        $month = $today->month;
+        $costs = $this->financeRepository->fetchCostsForCurrentMonth($userId, $year, $month);
+        return $this->categoryRepository->fetchBudgetsForMonth($userId, $costs);
+    }
     /**
      * fetch all categories
      * 
