@@ -19,7 +19,7 @@ export default function DoughnutChart({ labels, colors, values }) {
           },
           align: "right",
           font: {
-            size: "14",
+            size: "10",
           },
         },
       },

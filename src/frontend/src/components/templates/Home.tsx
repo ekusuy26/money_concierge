@@ -56,10 +56,11 @@ export default function Home() {
                 <div className="">収支</div>
                 <div
                   className={
-                    "col-span-2 " + (true ? "text-blue-400" : "text-red-400")
+                    "col-span-2 " +
+                    (data.total > 0 ? "text-blue-400" : "text-red-400")
                   }
                 >
-                  {/* {Math.abs(total).toLocaleString()}円 */}
+                  {Math.abs(data.total).toLocaleString()}円
                 </div>
               </div>
             ) : (

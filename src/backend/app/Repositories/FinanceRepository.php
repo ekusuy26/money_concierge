@@ -132,7 +132,8 @@ class FinanceRepository
             )
             ->groupBy('categories.id', 'categories.name', 'categories.slug', 'categories.color', 'month')
             ->orderBy('month', 'desc')
-            ->orderBy('categories.id', 'asc')
+            ->orderBy('total_amount', 'desc')
+            // ->orderBy('categories.id', 'asc')
             ->get();
     }
 }
