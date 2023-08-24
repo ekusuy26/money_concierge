@@ -5,6 +5,13 @@ export interface ListTitleProps {
 export interface SvgProps {
   slug: string;
 }
+export interface ProgressBarProps {
+  percent: number;
+  colorCode: string;
+  title: string;
+  current: number;
+  max: number;
+}
 // atoms
 // molecules
 export interface ButtonCategoryProps {
@@ -72,6 +79,15 @@ export interface Summary {
 export interface ReportSWR {
   [key: string]: Summary;
 }
+
+export interface Budget {
+  variable_flg: number;
+  budget: number;
+  cost: number;
+  cost_name: string;
+  cost_percentage: number;
+}
+export type Budgets = Budget[];
 
 export interface UserSession {
   id?: string | null | undefined;

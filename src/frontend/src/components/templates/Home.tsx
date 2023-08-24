@@ -1,14 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/Fetcher";
+import { Budgets } from "@/interfaces/interface";
 
+import ProgressBar from "@/components/atoms/ProgressBar";
 import DoughnutChart from "@/components/molecules/DoughnutChart";
-import Modal from "@/components/organisms/Modal";
+import Card from "@/components/molecules/Card";
 import Load from "@/components/molecules/Load";
-import { useEffect, useState } from "react";
-import Card from "../molecules/Card";
-import ProgressBar from "../atoms/ProgressBar";
+import Modal from "@/components/organisms/Modal";
 
 export default function Home() {
   const [userId, setUserId] = useState("");
@@ -22,7 +23,7 @@ export default function Home() {
     data: budgets,
     error: budgetsError,
     isLoading: budgetsIsLoading,
-  } = useSWR(
+  } = useSWR<Budgets>(
     userId
       ? `${process.env.NEXT_PUBLIC_API_URL}/category/budget/summary/${userId}`
       : null,
@@ -40,14 +41,15 @@ export default function Home() {
 
   if (error || budgetsError) return <Load status="fail" />;
   if (isLoading || budgetsIsLoading) return <Load status="now" />;
-  console.log(budgets);
+
   return (
-    <>
+    <div className="pt-5">
       {data && (
-        <div className="flex flex-col gap-3 p-5">
-          <div className="border rounded-lg p-5 shadow bg-white">
+        <Card>
+          <div className="py-5">
             <div className="mb-2">
-              今月の収支<span className="text-sm ms-3">2023/8/1~2023/8/31</span>
+              今月の収支
+              <span className="text-sm ms-3">2023/8/1~2023/8/31</span>
             </div>
             {Object.keys(data.summary).length !== 0 ? (
               <div className="grid grid-rows-3 grid-cols-5 items-end text-right">
@@ -80,7 +82,7 @@ export default function Home() {
               <p>対象のデータは存在しません</p>
             )}
           </div>
-        </div>
+        </Card>
       )}
       <Card>
         <div className="flex flex-col divide-y">
@@ -89,7 +91,7 @@ export default function Home() {
               <div key={budget.cost_name} className="py-5">
                 <ProgressBar
                   percent={budget.cost_percentage}
-                  colorCode={"#000000"}
+                  colorCode={budget.variable_flg ? "#0ea5e9" : "#eab308"}
                   title={budget.cost_name}
                   current={Number(budget.cost)}
                   max={Number(budget.budget)}
@@ -99,6 +101,6 @@ export default function Home() {
         </div>
       </Card>
       <Modal />
-    </>
+    </div>
   );
 }
