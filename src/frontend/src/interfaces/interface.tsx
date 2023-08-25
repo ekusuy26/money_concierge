@@ -28,8 +28,8 @@ export interface ButtonFixedProps {
 export interface ButtonMainMenuProps {
   title: string;
   href: string;
-  slug: string;
-  isActive: boolean;
+  icon: React.ReactNode;
+  isActive?: boolean;
 }
 // molecules
 // organisms

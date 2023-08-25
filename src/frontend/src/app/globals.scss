@@ -69,8 +69,8 @@ input#income:checked ~ .mj-slideBar {
   @apply w-2/3 mx-3;
 }
 
-.mj-categoryIconWrap {
-  @apply h-8 w-8 rounded-full p-1 inline-block;
+.mj-iconWrap {
+  @apply h-8 w-8 rounded-full p-1 fill-slate-700 inline-block;
   &.food {
     @apply bg-food;
   }

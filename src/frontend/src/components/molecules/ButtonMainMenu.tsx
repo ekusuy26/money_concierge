@@ -5,24 +5,13 @@ import { ButtonMainMenuProps } from "@/interfaces/interface";
 export default function ButtonMainMenu({
   title,
   href,
-  slug,
+  icon,
   isActive,
 }: ButtonMainMenuProps) {
   return (
-    <Link
-      className={`flex items-center justify-center ${
-        isActive
-          ? "bg-main text-baseWhite fill-baseWhite"
-          : "text-accent fill-accent"
-      }`}
-      href={href}
-    >
-      <div>
-        <div className="mx-auto mb-1">
-          <Svg slug={slug} size={7} />
-        </div>
-        {title}
-      </div>
+    <Link href={href} className={`${isActive ? "bg-main" : ""} py-2`}>
+      {icon}
+      <p>{title}</p>
     </Link>
   );
 }
