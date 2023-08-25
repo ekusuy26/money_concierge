@@ -40,8 +40,8 @@ export default function Modal() {
       >
         <div className="mj-fade z-modal">
           <div className="text-right">
-            <button className="h-10 w-10 m-5" onClick={() => setIsOpen(false)}>
-              <Svg slug="close" />
+            <button onClick={() => setIsOpen(false)}>
+              <Svg slug="close" size={10} />
             </button>
           </div>
           <Form callback={closeModal} />

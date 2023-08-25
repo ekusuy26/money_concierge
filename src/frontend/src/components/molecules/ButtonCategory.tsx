@@ -20,8 +20,8 @@ export default function ButtonCategory({
         className="mj-categoryBtn border py-2 rounded-md text-center text-xs"
         htmlFor={`category${id}`}
       >
-        <div className="h-7 w-7 mx-auto">
-          <Svg slug={slug} />
+        <div className="mx-auto">
+          <Svg slug={slug} size={7} />
         </div>
         {name}
       </label>

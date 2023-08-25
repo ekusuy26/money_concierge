@@ -10,12 +10,12 @@ export default function ListBudget({ closeBtn }) {
   const [userId, setUserId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // const { data, error, isLoading } = useSWR<any[]>(
-  //   userId
-  //     ? `${process.env.NEXT_PUBLIC_API_URL}/category/budget/${userId}`
-  //     : null,
-  //   fetcher
-  // );
+  const { data, error, isLoading } = useSWR<any[]>(
+    userId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/category/budget/${userId}`
+      : null,
+    fetcher
+  );
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -26,18 +26,17 @@ export default function ListBudget({ closeBtn }) {
     fetchUserId();
   }, []);
 
-  // if (error) return <Load status="fail" />;
-  // if (isLoading) return <Load status="now" />;
+  if (error) return <Load status="fail" />;
+  if (isLoading) return <Load status="now" />;
   return (
     <>
       <div className="flex justify-between p-5">
         {closeBtn}
-        <div className="">固定費</div>
         <button className="" onClick={() => setIsOpen(true)}>
-          <Svg slug={"setting"} size={8} />
+          設定する
         </button>
       </div>
-      {/* <div className="text-center border-y py-5">
+      <div className="text-center border-y py-5">
         <p>合計支出</p>
         <span className="text-4xl me-3">{data?.total.toLocaleString()}</span>
         円/月
@@ -70,7 +69,7 @@ export default function ListBudget({ closeBtn }) {
           </div>
           <div className="">hoge</div>
         </div>
-      </CSSTransition> */}
+      </CSSTransition>
     </>
   );
 }

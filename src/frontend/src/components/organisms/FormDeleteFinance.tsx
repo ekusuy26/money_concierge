@@ -26,7 +26,7 @@ export default function FormDeleteFinance({ id, callback }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" {...register("id")} />
-      <button type="submit" className="h-8 w-8 fill-red-500">
+      <button type="submit" className="fill-red-500">
         <Svg slug="trash" />
       </button>
     </form>

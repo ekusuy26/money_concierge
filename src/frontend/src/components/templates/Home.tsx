@@ -10,8 +10,11 @@ import DoughnutChart from "@/components/molecules/DoughnutChart";
 import Card from "@/components/molecules/Card";
 import Load from "@/components/molecules/Load";
 import Modal from "@/components/organisms/Modal";
+import { CSSTransition } from "react-transition-group";
+import ListBudget from "../organisms/ListBudget";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState("");
   const { data, error, isLoading } = useSWR(
     userId
@@ -30,6 +33,10 @@ export default function Home() {
     fetcher
   );
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   useEffect(() => {
     const fetchUserId = async () => {
       const response = await fetch("/api/userId");
@@ -38,10 +45,14 @@ export default function Home() {
     };
     fetchUserId();
   }, []);
+  const today = new Date();
+  const from = `${today.getFullYear()}年${today.getMonth() + 1}月1日`;
+  const to = `${today.getFullYear()}年${
+    today.getMonth() + 1
+  }月${today.getDate()}日`;
 
   if (error || budgetsError) return <Load status="fail" />;
   if (isLoading || budgetsIsLoading) return <Load status="now" />;
-
   return (
     <div className="pt-5">
       {data && (
@@ -49,7 +60,11 @@ export default function Home() {
           <div className="py-5">
             <div className="mb-2">
               今月の収支
-              <span className="text-sm ms-3">2023/8/1~2023/8/31</span>
+              <span className="text-sm ms-3">
+                {from}
+                <span className="mx-2">~</span>
+                {to}
+              </span>
             </div>
             {Object.keys(data.summary).length !== 0 ? (
               <div className="grid grid-rows-3 grid-cols-5 items-end text-right">
@@ -85,7 +100,7 @@ export default function Home() {
         </Card>
       )}
       <Card>
-        <div className="flex flex-col divide-y">
+        <div className="flex flex-col divide-y" onClick={openModal}>
           {budgets &&
             budgets.map((budget, _) => (
               <div key={budget.cost_name} className="py-5">
@@ -101,6 +116,20 @@ export default function Home() {
         </div>
       </Card>
       <Modal />
+      <CSSTransition
+        in={isOpen}
+        timeout={500}
+        classNames="mj-fadeX"
+        unmountOnExit
+      >
+        <div className="mj-fadeX z-modal overflow-scroll">
+          <div>
+            <ListBudget
+              closeBtn={<button onClick={() => setIsOpen(false)}>戻る</button>}
+            />
+          </div>
+        </div>
+      </CSSTransition>
     </div>
   );
 }

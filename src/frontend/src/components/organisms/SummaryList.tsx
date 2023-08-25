@@ -12,9 +12,9 @@ export default function SummaryList({ data, payment }) {
             <div className="flex-grow">
               <div className="flex items-center">
                 <div
-                  className={`mj-categoryIconWrap ${line.slug} h-8 w-8 rounded-full p-1`}
+                  className={`mj-categoryIconWrap ${line.slug} rounded-full p-1`}
                 >
-                  <Svg slug={line.slug} />
+                  <Svg slug={line.slug} size={5} />
                 </div>
                 <div className={"ms-3" + " bg-" + line.slug}>{line.name}</div>
               </div>

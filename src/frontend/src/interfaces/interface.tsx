@@ -4,6 +4,7 @@ export interface ListTitleProps {
 }
 export interface SvgProps {
   slug: string;
+  size?: number;
 }
 export interface ProgressBarProps {
   percent: number;
@@ -11,6 +12,7 @@ export interface ProgressBarProps {
   title: string;
   current: number;
   max: number;
+  slug?: string;
 }
 // atoms
 // molecules

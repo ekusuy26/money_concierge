@@ -1,6 +1,16 @@
 import { SvgProps } from "@/interfaces/interface";
 
-export default function Svg({ slug }: SvgProps) {
+export default function Svg({ slug, size }: SvgProps) {
+  const icon = getIcon(slug);
+  const sizeCls = size ? `h-${size} w-${size}` : "h-8 w-8";
+  return (
+    <>
+      <div className={`${sizeCls} inline-block`}>{icon}</div>
+    </>
+  );
+}
+
+function getIcon(slug: string) {
   if (slug === "close") {
     return (
       <svg

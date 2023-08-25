@@ -18,8 +18,8 @@ export default function ButtonMainMenu({
       href={href}
     >
       <div>
-        <div className="h-7 w-7 mx-auto mb-1">
-          <Svg slug={slug} />
+        <div className="mx-auto mb-1">
+          <Svg slug={slug} size={7} />
         </div>
         {title}
       </div>
